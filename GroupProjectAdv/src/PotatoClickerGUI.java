@@ -23,7 +23,6 @@ public class PotatoClickerGUI {
 		frame.setResizable(false);
 		frame.setFocusable(true);
 		frame.setSize(500,500);
-		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		

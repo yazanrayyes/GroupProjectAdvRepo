@@ -27,7 +27,7 @@ public class PotatoClickGUI {
 		
 		JFrame frame = new JFrame();
 		// creates scaled imageIcon here
-		potato = new ImageIcon("C:\\Users\\YazanAlrayyes21\\git\\GroupProjectAdvRepo\\GroupProjectAdv\\src\\potato.png");
+		potato = new ImageIcon("src\\potato.png");
 		Image originalPotato = potato.getImage();
 		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon potato= new ImageIcon (scaled);

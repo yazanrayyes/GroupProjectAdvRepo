@@ -33,7 +33,7 @@ public class PotatoClickGUI implements ActionListener {
 		
 		potatoCounter = 0;
 		
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Potato Clicker");
 		// creates scaled imageIcon here
 		potato = new ImageIcon("src\\potato.png");
 		Image originalPotato = potato.getImage();
@@ -102,7 +102,7 @@ public class PotatoClickGUI implements ActionListener {
 		lifetimecounter=new JLabel("total potatoes gathered: " + lifetimepotatoCounter);
 		lifetimecounter.setForeground(Color.white);
 		lifetimecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
-		lifetimecounter.setBounds(300,500,200,100);
+		lifetimecounter.setBounds(300,500,250,100);
 		
 		idlecounter=new JLabel("Test");
 		idlecounter.setForeground(Color.white);

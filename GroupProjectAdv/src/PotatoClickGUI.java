@@ -29,16 +29,18 @@ public class PotatoClickGUI {
 		// Will set image Icon here
 		potato = new ImageIcon("C:\\Users\\YazanAlrayyes21\\git\\GroupProjectAdvRepo\\GroupProjectAdv\\src\\potato.png");
 		Image originalPotato = potato.getImage();
-		Image scaled= originalPotato.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
+		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon potato= new ImageIcon (scaled);
 		image = new JLabel(potato);
 		
 		Panel potatoImage = new Panel();
-		potatoImage.setBounds(400, 220, 200, 200);
+		potatoImage.setBounds(250, 200, 500, 200);
 		potatoImage.add(image);
 		frame.add(potatoImage);
 		
+		
 		frame.setResizable(false);
+		frame.setLayout(null);
 		frame.setFocusable(true);
 		frame.setSize(600,600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

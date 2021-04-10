@@ -27,17 +27,19 @@ public class PotatoClickGUI {
 		
 		JFrame frame = new JFrame();
 		
-		// Will set image Icon here
+		// creates scaled imageIcon here
 		potato = new ImageIcon("C:\\Users\\YazanAlrayyes21\\git\\GroupProjectAdvRepo\\GroupProjectAdv\\src\\potato.png");
 		Image originalPotato = potato.getImage();
 		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon potato= new ImageIcon (scaled);
 		
+		//creates panel and potato button
 		Panel potatoPanel = new Panel();
 		potatoPanel.setBounds(250, 200, 500, 200);
 		potatoButton = new JButton();
 		potatoButton.setBackground(Color.gray);
 		potatoButton.setIcon(potato);
+		potatoButton.setBorder(null); //to avoid the blue border on potato
 		potatoPanel.add(potatoButton);
 		frame.add(potatoPanel);
 		

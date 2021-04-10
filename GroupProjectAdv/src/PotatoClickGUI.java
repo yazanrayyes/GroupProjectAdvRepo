@@ -73,7 +73,7 @@ public class PotatoClickGUI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		potatoCounter++;
-		counter.setText(potatoCounter+ " Cookies");
+		counter.setText(potatoCounter+ " potatoes");
 	}
 
 }

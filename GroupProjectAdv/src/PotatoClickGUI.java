@@ -26,8 +26,8 @@ public class PotatoClickGUI implements ActionListener {
 	int lifetimepotatoCounter = 0;
 	
 	
-	//Done by Yazan, Khaled, Ismail
-	// Outline 4/7
+	//Done by Yazan, Khaled, Ismael
+	// Updated 4/11
 	
 	public PotatoClickGUI() {
 		
@@ -63,6 +63,7 @@ public class PotatoClickGUI implements ActionListener {
 		
 		JLabel autoupgradelabel = new JLabel("Clickers:");
 		autoupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
+		autoupgradelabel.setForeground(Color.white);
 		autoupgradePanel.add(autoupgradelabel);
 		autoupgradePanel.setBackground(Color.gray);
 		Button autoupgrade1 = new Button("Clicker 1");
@@ -82,8 +83,10 @@ public class PotatoClickGUI implements ActionListener {
 		
 		JLabel clickupgradelabel = new JLabel("Upgrades:");
 		clickupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
+		clickupgradelabel.setForeground(Color.white);
 		clickupgradePanel.add(clickupgradelabel);
 		clickupgradePanel.setBackground(Color.gray);
+		
 		Button clickupgrade1 = new Button("Upgrade 1");
 		clickupgradePanel.add(clickupgrade1);
 		Button clickupgrade2 = new Button("Upgrade 2");

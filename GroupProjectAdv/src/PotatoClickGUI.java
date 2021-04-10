@@ -64,6 +64,7 @@ public class PotatoClickGUI implements ActionListener {
 		JLabel autoupgradelabel = new JLabel("Clickers:");
 		autoupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		autoupgradePanel.add(autoupgradelabel);
+		autoupgradePanel.setBackground(Color.gray);
 		Button autoupgrade1 = new Button("Clicker 1");
 		autoupgradePanel.add(autoupgrade1);
 		Button autoupgrade2 = new Button("Clicker 2");
@@ -82,6 +83,7 @@ public class PotatoClickGUI implements ActionListener {
 		JLabel clickupgradelabel = new JLabel("Upgrades:");
 		clickupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		clickupgradePanel.add(clickupgradelabel);
+		clickupgradePanel.setBackground(Color.gray);
 		Button clickupgrade1 = new Button("Upgrade 1");
 		clickupgradePanel.add(clickupgrade1);
 		Button clickupgrade2 = new Button("Upgrade 2");

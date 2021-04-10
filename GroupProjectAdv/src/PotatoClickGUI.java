@@ -7,6 +7,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -14,7 +15,7 @@ import javax.swing.JLabel;
 public class PotatoClickGUI {
 	
 	JFrame frame;
-	private Button potatobutton;
+	private JButton potatoButton;
 	private ImageIcon potato;
 	private JLabel image;
 	
@@ -31,15 +32,18 @@ public class PotatoClickGUI {
 		Image originalPotato = potato.getImage();
 		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon potato= new ImageIcon (scaled);
-		image = new JLabel(potato);
 		
-		Panel potatoImage = new Panel();
-		potatoImage.setBounds(250, 200, 500, 200);
-		potatoImage.add(image);
-		frame.add(potatoImage);
+		Panel potatoPanel = new Panel();
+		potatoPanel.setBounds(250, 200, 500, 200);
+		potatoButton = new JButton();
+		potatoButton.setBackground(Color.gray);
+		potatoButton.setIcon(potato);
+		potatoPanel.add(potatoButton);
+		frame.add(potatoPanel);
 		
 		
 		frame.setResizable(false);
+		frame.getContentPane().setBackground(Color.gray);
 		frame.setLayout(null);
 		frame.setFocusable(true);
 		frame.setSize(600,600);

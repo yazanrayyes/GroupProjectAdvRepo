@@ -2,6 +2,7 @@
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Panel;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -27,16 +28,26 @@ public class PotatoClickGUI {
 		
 		// Will set image Icon here
 		potato = new ImageIcon("C:\\Users\\YazanAlrayyes21\\git\\GroupProjectAdvRepo\\GroupProjectAdv\\src\\potato.png");
+		Image originalPotato = potato.getImage();
+		Image scaled= originalPotato.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon potato= new ImageIcon (scaled);
 		image = new JLabel(potato);
-		frame.add(image);
+		
+		Panel potatoImage = new Panel();
+		potatoImage.setBounds(400, 220, 200, 200);
+		potatoImage.add(image);
+		frame.add(potatoImage);
 		
 		frame.setResizable(false);
 		frame.setFocusable(true);
-		frame.setSize(500,500);
+		frame.setSize(600,600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		frame.setVisible(true);
 			
+	}
+	
+	public static void main (String args[]) {
+		new PotatoClickGUI();
 	}
 
 }

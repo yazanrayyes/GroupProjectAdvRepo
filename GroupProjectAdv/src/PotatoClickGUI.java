@@ -118,7 +118,7 @@ public class PotatoClickGUI implements ActionListener {
 		frame.getContentPane().setBackground(Color.gray);
 		frame.setLayout(null);
 		frame.setFocusable(true);
-		frame.setSize(600,600);
+		frame.setSize(620,620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 			

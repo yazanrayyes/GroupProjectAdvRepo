@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 //Done by Yazan, Khaled, Ismael
 // Updated 4/11
@@ -35,11 +36,18 @@ public class PotatoClickGUI implements ActionListener {
 	private JButton autoupgrade2;
 	private JButton autoupgrade3;
 	
-	
 	// Counters
 	
 	int potatoCounter = 0; // counts the number of potatoes
 	int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
+	
+	// Timer
+	
+	private Timer timer; // incrementally increases cookies each second
+	
+	// ActionEvent
+	
+	private ActionEvent e;
 	
 	public PotatoClickGUI() {
 		
@@ -159,6 +167,13 @@ public class PotatoClickGUI implements ActionListener {
 	public static void main (String args[]) {
 		new PotatoClickGUI();
 	}
+	
+	// CURRENTLY NON-FUNCTIONAL sets the timer depending on upgrades added
+	
+	public void potatoTimer() {
+		
+		timer = new Timer(1000, this);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -198,6 +213,12 @@ public class PotatoClickGUI implements ActionListener {
 			System.out.println("This is a test");
 		}
 		if (e.getSource() == autoupgrade3) {
+			System.out.println("This is a test");
+		}
+		
+		// timer updates every 1000 milliseconds (one second)
+		
+		if (e.getSource() == timer) {
 			System.out.println("This is a test");
 		}
 		

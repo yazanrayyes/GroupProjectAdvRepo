@@ -27,6 +27,15 @@ public class PotatoClickGUI implements ActionListener {
 	JLabel idlecounter; // potatoes per second
 	JLabel lifetimecounter; // counts the amount of potatoes collected over the course of the game
 	
+	private JButton clickupgrade1; // upgrades potatoes per click
+	private JButton clickupgrade2;
+	private JButton clickupgrade3;
+	
+	private JButton autoupgrade1; // upgrades auto clickers
+	private JButton autoupgrade2;
+	private JButton autoupgrade3;
+	
+	
 	// Counters
 	
 	int potatoCounter = 0; // counts the number of potatoes
@@ -74,11 +83,14 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// some dummy clickers, will make them work later
 		
-		Button autoupgrade1 = new Button("Clicker 1");
+		autoupgrade1 = new JButton("Clicker 1");
+		autoupgrade1.addActionListener(this);
 		autoupgradePanel.add(autoupgrade1);
-		Button autoupgrade2 = new Button("Clicker 2");
+		autoupgrade2 = new JButton("Clicker 2");
+		autoupgrade2.addActionListener(this);
 		autoupgradePanel.add(autoupgrade2);
-		Button autoupgrade3 = new Button("Clicker 3");
+		autoupgrade3 = new JButton("Clicker 3");
+		autoupgrade3.addActionListener(this);
 		autoupgradePanel.add(autoupgrade3);
 		
 		// CURRENTLY NON-FUNCTIONAL here you can buy upgrades that give you more potatoes per click
@@ -96,11 +108,14 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// some dummy clickers, will make them work later
 		
-		Button clickupgrade1 = new Button("Upgrade 1");
+		clickupgrade1 = new JButton("Upgrade 1");
+		clickupgrade1.addActionListener(this);
 		clickupgradePanel.add(clickupgrade1);
-		Button clickupgrade2 = new Button("Upgrade 2");
+		clickupgrade2 = new JButton("Upgrade 2");
+		clickupgrade2.addActionListener(this);
 		clickupgradePanel.add(clickupgrade2);
-		Button clickupgrade3 = new Button("Upgrade 3");
+		clickupgrade3 = new JButton("Upgrade 3");
+		clickupgrade3.addActionListener(this);
 		clickupgradePanel.add(clickupgrade3);
 		
 		// counter counts the number of potatoes gathered
@@ -148,13 +163,43 @@ public class PotatoClickGUI implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		potatoCounter++; // increases potatoes counted on click
-		lifetimepotatoCounter++; // increases lifetime potatoes on click
+		// When the player clicks the potato
 		
-		// updates GUI
+		if (e.getSource() == potatoButton) {
+			
+			potatoCounter++; // increases potatoes counted on click
+			lifetimepotatoCounter++; // increases lifetime potatoes on click
+			
+			// updates GUI
+			
+			counter.setText(potatoCounter+ " potatoes");
+			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+			
+		}
 		
-		counter.setText(potatoCounter+ " potatoes");
-		lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+		// When the player clicks the upgrade buttons
+		
+		if (e.getSource() == clickupgrade1) {
+			System.out.println("This is a test");
+		}
+		if (e.getSource() == clickupgrade2) {
+			System.out.println("This is a test");
+		}
+		if (e.getSource() == clickupgrade3) {
+			System.out.println("This is a test");
+		}
+		
+		// When the player clicks the clicker buttons
+		
+		if (e.getSource() == autoupgrade1) {
+			System.out.println("This is a test");
+		}
+		if (e.getSource() == autoupgrade2) {
+			System.out.println("This is a test");
+		}
+		if (e.getSource() == autoupgrade3) {
+			System.out.println("This is a test");
+		}
 		
 	}
 

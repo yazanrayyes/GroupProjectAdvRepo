@@ -13,34 +13,42 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+//Done by Yazan, Khaled, Ismael
+// Updated 4/11
 
 public class PotatoClickGUI implements ActionListener {
 	
-	JFrame frame;
-	private JButton potatoButton;
-	private ImageIcon potato;
+	// GUI Stuff
+	
+	JFrame frame; // our frame
+	private JButton potatoButton; // potato clickable area
+	private ImageIcon potato; // the image for the potato
 	JLabel counter; // counts the amount of potatoes collected
 	JLabel idlecounter; // potatoes per second
-	JLabel lifetimecounter; // counts the amount of potatoes collected in total over the course of the game
-	int potatoCounter = 0;
-	int lifetimepotatoCounter = 0;
+	JLabel lifetimecounter; // counts the amount of potatoes collected over the course of the game
 	
+	// Counters
 	
-	//Done by Yazan, Khaled, Ismael
-	// Updated 4/11
+	int potatoCounter = 0; // counts the number of potatoes
+	int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
 	
 	public PotatoClickGUI() {
 		
 		potatoCounter = 0;
 		
+		// creates frame
+		
 		JFrame frame = new JFrame("Potato Clicker");
+		
 		// creates scaled imageIcon here
+		
 		potato = new ImageIcon("src\\potato.png");
 		Image originalPotato = potato.getImage();
 		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon potato= new ImageIcon (scaled);
 		
 		//creates panel and potato button
+		
 		Panel potatoPanel = new Panel();
 		potatoPanel.setBounds(250, 200, 500, 200);
 		potatoButton = new JButton();
@@ -51,21 +59,21 @@ public class PotatoClickGUI implements ActionListener {
 		potatoPanel.add(potatoButton);
 		frame.add(potatoPanel);
 		
-		
-		// Here you can buy autoclickers to click the potato automatically for you
+		// CURRENTLY NON-FUNCTIONAL here you can buy autoclickers to click the potato automatically for you
 		
 		Panel autoupgradePanel = new Panel();
 		autoupgradePanel.setBackground(Color.white);
 		autoupgradePanel.setBounds(40, 40, 200, 200);
 		autoupgradePanel.setLayout(new GridLayout(4,1));
 		
-		// Some dummy upgrades, will make them work later
-		
 		JLabel autoupgradelabel = new JLabel("Clickers:");
 		autoupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		autoupgradelabel.setForeground(Color.white);
 		autoupgradePanel.add(autoupgradelabel);
 		autoupgradePanel.setBackground(Color.gray);
+		
+		// some dummy clickers, will make them work later
+		
 		Button autoupgrade1 = new Button("Clicker 1");
 		autoupgradePanel.add(autoupgrade1);
 		Button autoupgrade2 = new Button("Clicker 2");
@@ -73,8 +81,7 @@ public class PotatoClickGUI implements ActionListener {
 		Button autoupgrade3 = new Button("Clicker 3");
 		autoupgradePanel.add(autoupgrade3);
 		
-		
-		// Here you can buy upgrades that give you more potatoes per click
+		// CURRENTLY NON-FUNCTIONAL here you can buy upgrades that give you more potatoes per click
 		
 		Panel clickupgradePanel = new Panel();
 		clickupgradePanel.setBackground(Color.white);
@@ -87,6 +94,8 @@ public class PotatoClickGUI implements ActionListener {
 		clickupgradePanel.add(clickupgradelabel);
 		clickupgradePanel.setBackground(Color.gray);
 		
+		// some dummy clickers, will make them work later
+		
 		Button clickupgrade1 = new Button("Upgrade 1");
 		clickupgradePanel.add(clickupgrade1);
 		Button clickupgrade2 = new Button("Upgrade 2");
@@ -94,20 +103,28 @@ public class PotatoClickGUI implements ActionListener {
 		Button clickupgrade3 = new Button("Upgrade 3");
 		clickupgradePanel.add(clickupgrade3);
 		
+		// counter counts the number of potatoes gathered
+		
 		counter=new JLabel(potatoCounter +" potatoes");
 		counter.setForeground(Color.white);
 		counter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		counter.setBounds(400,60,200,100);
+		
+		// counter counts the number of potatoes gathered throughout the game
 		
 		lifetimecounter=new JLabel("total potatoes gathered: " + lifetimepotatoCounter);
 		lifetimecounter.setForeground(Color.white);
 		lifetimecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		lifetimecounter.setBounds(300,500,250,100);
 		
+		// CURRENTLY NON-FUNCTIONAL will display potatoes gathered per second as the player idles
+		
 		idlecounter=new JLabel("Test");
 		idlecounter.setForeground(Color.white);
 		idlecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		idlecounter.setBounds(400,100,200,100);
+		
+		// adds all the GUI to our frame
 		
 		frame.add(counter);
 		frame.add(idlecounter);
@@ -130,10 +147,15 @@ public class PotatoClickGUI implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		potatoCounter++;
-		lifetimepotatoCounter++;
+		
+		potatoCounter++; // increases potatoes counted on click
+		lifetimepotatoCounter++; // increases lifetime potatoes on click
+		
+		// updates GUI
+		
 		counter.setText(potatoCounter+ " potatoes");
 		lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+		
 	}
 
 }

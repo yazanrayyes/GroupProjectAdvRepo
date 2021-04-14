@@ -40,7 +40,8 @@ public class PotatoClickGUI implements ActionListener {
 	
 	int potatoCounter = 0; // counts the number of potatoes
 	int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
-	int incrementer=1; //the amount of potatoes added (used to activate powerups)
+	int incrementer; //the amount of potatoes added (used to activate powerups)
+	boolean doubler=false; //checks powerup activation
 	// Timer
 	
 	private Timer timer; // incrementally increases cookies each second
@@ -181,7 +182,9 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the potato
 		
 		if (e.getSource() == potatoButton) {
-			
+			incrementer=1;
+			if (doubler)
+				incrementer=2;
 			potatoCounter+=incrementer; // increases potatoes counted on click
 			lifetimepotatoCounter+=incrementer; // increases lifetime potatoes on click
 			
@@ -195,13 +198,13 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the upgrade buttons
 		
 		if (e.getSource() == clickupgrade1) {
-			incrementer*=2;
+			doubler=true;
 		}
 		if (e.getSource() == clickupgrade2) {
-			System.out.println("This is a test");
+			System.out.println("clickupgrade2");
 		}
 		if (e.getSource() == clickupgrade3) {
-			System.out.println("This is a test");
+			System.out.println("clickupgrade3");
 		}
 		
 		// When the player clicks the clicker buttons
@@ -215,9 +218,7 @@ public class PotatoClickGUI implements ActionListener {
 		if (e.getSource() == autoupgrade3) {
 			System.out.println("This is a test");
 		}
-		
 		// timer updates every 1000 milliseconds (one second)
-		
 		if (e.getSource() == timer) {
 			System.out.println("This is a test");
 		}

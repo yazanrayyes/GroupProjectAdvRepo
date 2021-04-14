@@ -41,14 +41,26 @@ public class PotatoClickGUI implements ActionListener {
 	int potatoCounter = 0; // counts the number of potatoes
 	int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
 	int incrementer; //the amount of potatoes added (used to activate powerups)
-	boolean doubler=false; //checks powerup activation
+	
+	// Upgrades
+	
+	int plusten=0; // +10 cookies per click
+	int plustenprice = 100;
+	int plustenqty = 0;
+	
+	int plushundred=0; // +100 cookies per click
+	int plushundredprice = 1000;
+	int plushundredqty = 0;
+	
+	int plusthousand=0; // +1000 cookies per click
+	int plusthousandprice = 10000;
+	int plusthousandqty = 0;
+	
 	// Timer
 	
 	private Timer timer; // incrementally increases cookies each second
 	
 	// ActionEvent
-	
-	private ActionEvent e;
 	
 	public PotatoClickGUI() {
 		
@@ -117,13 +129,13 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// some dummy clickers, will make them work later
 		
-		clickupgrade1 = new JButton("Double Points!");
+		clickupgrade1 = new JButton("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
 		clickupgrade1.addActionListener(this);
 		clickupgradePanel.add(clickupgrade1);
-		clickupgrade2 = new JButton("Upgrade 2");
+		clickupgrade2 = new JButton("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
 		clickupgrade2.addActionListener(this);
 		clickupgradePanel.add(clickupgrade2);
-		clickupgrade3 = new JButton("Upgrade 3");
+		clickupgrade3 = new JButton("100 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
 		clickupgrade3.addActionListener(this);
 		clickupgradePanel.add(clickupgrade3);
 		
@@ -182,9 +194,7 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the potato
 		
 		if (e.getSource() == potatoButton) {
-			incrementer=1;
-			if (doubler)
-				incrementer=2;
+			incrementer=1 + plusten + plushundred + plusthousand;
 			potatoCounter+=incrementer; // increases potatoes counted on click
 			lifetimepotatoCounter+=incrementer; // increases lifetime potatoes on click
 			
@@ -197,14 +207,39 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// When the player clicks the upgrade buttons
 		
-		if (e.getSource() == clickupgrade1) {
-			doubler=true;
+		if (e.getSource() == clickupgrade1 && potatoCounter >= plustenprice) {
+			potatoCounter -= plustenprice;
+			
+			counter.setText(potatoCounter+ " potatoes");
+			
+			plustenqty += 1;
+			plustenprice+=100;
+			clickupgrade1.setText("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
+			
+			plusten+=10;
 		}
-		if (e.getSource() == clickupgrade2) {
-			System.out.println("clickupgrade2");
+		if (e.getSource() == clickupgrade2 && potatoCounter >= plushundredprice) {
+			potatoCounter -= plushundredprice;
+			
+			counter.setText(potatoCounter+ " potatoes");
+			
+			plushundredqty += 1;
+			plushundredprice+=1000;
+			clickupgrade2.setText("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
+			
+			plushundred+=100;
 		}
-		if (e.getSource() == clickupgrade3) {
-			System.out.println("clickupgrade3");
+		if (e.getSource() == clickupgrade3 && potatoCounter >= plusthousandprice) {
+			potatoCounter -= plusthousandprice;
+			
+			counter.setText(potatoCounter+ " potatoes");
+			
+			plusthousandqty += 1;
+			plusthousandprice+=10000;
+			clickupgrade3.setText("1000 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+			
+
+			plusthousand+=1000;
 		}
 		
 		// When the player clicks the clicker buttons

@@ -144,14 +144,14 @@ public class PotatoClickGUI implements ActionListener {
 		counter=new JLabel(potatoCounter +" potatoes");
 		counter.setForeground(Color.white);
 		counter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
-		counter.setBounds(450,60,200,100);
+		counter.setBounds(450,60,500,100);
 		
 		// counter counts the number of potatoes gathered throughout the game
 		
 		lifetimecounter=new JLabel("total potatoes gathered: " + lifetimepotatoCounter);
 		lifetimecounter.setForeground(Color.white);
 		lifetimecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
-		lifetimecounter.setBounds(350,500,250,100);
+		lifetimecounter.setBounds(350,500,400,100);
 		
 		// CURRENTLY NON-FUNCTIONAL will display potatoes gathered per second as the player idles
 		

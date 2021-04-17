@@ -14,8 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-//Done by Yazan, Khaled, Ismael
-// Updated 4/11
+// Potato Clicker Project V.1 by Yazan, Khaled, Ismael
+// Updated 4/17
 
 public class PotatoClickGUI implements ActionListener {
 	
@@ -44,23 +44,35 @@ public class PotatoClickGUI implements ActionListener {
 	
 	// Upgrades
 	
-	int plusten=0; // +10 cookies per click
+	int plusten=0; // +10 potatoes per click
 	int plustenprice = 100;
 	int plustenqty = 0;
 	
-	int plushundred=0; // +100 cookies per click
+	int plushundred=0; // +100 potatoes per click
 	int plushundredprice = 1000;
 	int plushundredqty = 0;
 	
-	int plusthousand=0; // +1000 cookies per click
+	int plusthousand=0; // +1000 potatoes per click
 	int plusthousandprice = 10000;
 	int plusthousandqty = 0;
 	
+	int autoone = 0; // +1 potatoes per second
+	int autooneprice = 100;
+	int autooneqty = 0;
+	
+	int autoten = 0; // +10 potatoes per second
+	int autotenprice = 1000;
+	int autotenqty = 0;
+	
+	int autohundred = 0; // +100 potatoes per second
+	int autohundredprice = 10000;
+	int autohundredqty = 0;
+	
 	// Timer
 	
-	private Timer timer; // incrementally increases cookies each second
+	private Timer timer = new Timer(1000, this);
 	
-	// ActionEvent
+	// Main Method / GUI
 	
 	public PotatoClickGUI() {
 		
@@ -104,13 +116,13 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// some dummy clickers, will make them work later
 		
-		autoupgrade1 = new JButton("Clicker 1");
+		autoupgrade1 = new JButton("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
 		autoupgrade1.addActionListener(this);
 		autoupgradePanel.add(autoupgrade1);
-		autoupgrade2 = new JButton("Clicker 2");
+		autoupgrade2 = new JButton("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
 		autoupgrade2.addActionListener(this);
 		autoupgradePanel.add(autoupgrade2);
-		autoupgrade3 = new JButton("Clicker 3");
+		autoupgrade3 = new JButton("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
 		autoupgrade3.addActionListener(this);
 		autoupgradePanel.add(autoupgrade3);
 		
@@ -153,9 +165,10 @@ public class PotatoClickGUI implements ActionListener {
 		lifetimecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		lifetimecounter.setBounds(350,500,400,100);
 		
-		// CURRENTLY NON-FUNCTIONAL will display potatoes gathered per second as the player idles
+		// displays potatoes gathered per second as the player idles
 		
-		idlecounter=new JLabel("Test");
+		int temp = autoone + autoten + autohundred;
+		idlecounter=new JLabel(temp + " Potatoes/Sec");
 		idlecounter.setForeground(Color.white);
 		idlecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		idlecounter.setBounds(450,100,200,100);
@@ -174,18 +187,15 @@ public class PotatoClickGUI implements ActionListener {
 		frame.setSize(1000,620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		// starts our timer
+		
+		timer.start();
 			
 	}
 	
 	public static void main (String args[]) {
 		new PotatoClickGUI();
-	}
-	
-	// CURRENTLY NON-FUNCTIONAL sets the timer depending on upgrades added
-	
-	public void potatoTimer() {
-		
-		timer = new Timer(1000, this);
 	}
 
 	@Override
@@ -194,7 +204,7 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the potato
 		
 		if (e.getSource() == potatoButton) {
-			incrementer=1 + plusten + plushundred + plusthousand;
+			incrementer= 1 + plusten + plushundred + plusthousand;
 			potatoCounter+=incrementer; // increases potatoes counted on click
 			lifetimepotatoCounter+=incrementer; // increases lifetime potatoes on click
 			
@@ -203,6 +213,16 @@ public class PotatoClickGUI implements ActionListener {
 			counter.setText(potatoCounter+ " potatoes");
 			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
 			
+		}
+		
+		// timer updates every 1000 milliseconds (one second)
+		if (e.getSource() == timer) {
+			int temp = autoone + autoten + autohundred;
+			potatoCounter += temp;
+			lifetimepotatoCounter += temp;
+			idlecounter.setText(temp + " Potatoes/Sec");
+			counter.setText(potatoCounter+ " potatoes");
+			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
 		}
 		
 		// When the player clicks the upgrade buttons
@@ -244,20 +264,30 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// When the player clicks the clicker buttons
 		
-		if (e.getSource() == autoupgrade1) {
-			System.out.println("This is a test");
+		if (e.getSource() == autoupgrade1 && potatoCounter >= autooneprice) {
+			potatoCounter -= autooneprice;
+			autoone+=1;
+			
+			autooneqty += 1;
+			autooneprice+=10;
+			autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
 		}
-		if (e.getSource() == autoupgrade2) {
-			System.out.println("This is a test");
+		if (e.getSource() == autoupgrade2 && potatoCounter >= autotenprice) {
+			potatoCounter -= autotenprice;
+			autoten+=10;
+			
+			autotenqty += 1;
+			autotenprice+=100;
+			autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
 		}
-		if (e.getSource() == autoupgrade3) {
-			System.out.println("This is a test");
+		if (e.getSource() == autoupgrade3 && potatoCounter >= autohundredprice) {
+			potatoCounter -= autohundredprice;
+			autohundred+=100;
+			
+			autohundredqty += 1;
+			autohundredprice+=1000;
+			autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
+			
 		}
-		// timer updates every 1000 milliseconds (one second)
-		if (e.getSource() == timer) {
-			System.out.println("This is a test");
-		}
-		
 	}
-
 }

@@ -1,5 +1,4 @@
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,6 +15,21 @@ import javax.swing.Timer;
 
 // Potato Clicker Project V.1 by Yazan, Khaled, Ismael
 // Updated 4/17
+
+/*
+
+Future Additions:
+
+Save system
+Achievements
+Leaderboard
+Reset button
+More upgrades
+Improved graphics and UI
+Improved gameplay
+
+*/
+
 
 public class PotatoClickGUI implements ActionListener {
 	

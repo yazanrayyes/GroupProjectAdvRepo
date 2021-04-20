@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.Timer;
 
 // Potato Clicker Project V.1 by Yazan, Khaled, Ismael
-// Updated 4/17
+// Updated 4/20
 
 /*
 
@@ -27,6 +27,8 @@ Reset button
 More upgrades
 Improved graphics and UI
 Improved gameplay
+Music
+Optimized code
 
 */
 
@@ -50,11 +52,14 @@ public class PotatoClickGUI implements ActionListener {
 	private JButton autoupgrade2;
 	private JButton autoupgrade3;
 	
+	private JButton resetbutton;
+	
 	// Counters
 	
 	int potatoCounter = 0; // counts the number of potatoes
 	int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
 	int incrementer; //the amount of potatoes added (used to activate powerups)
+	int autoincrementer; // the amount of potatoes added automatically
 	
 	// Upgrades
 	
@@ -181,14 +186,21 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// displays potatoes gathered per second as the player idles
 		
-		int temp = autoone + autoten + autohundred;
-		idlecounter=new JLabel(temp + " Potatoes/Sec");
+		autoincrementer = autoone + autoten + autohundred;
+		idlecounter=new JLabel(autoincrementer + " Potatoes/Sec");
 		idlecounter.setForeground(Color.white);
 		idlecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		idlecounter.setBounds(450,100,200,100);
 		
+		// resets the player's progress
+		
+		resetbutton = new JButton("Reset");
+		resetbutton.addActionListener(this);
+		resetbutton.setBounds(40,20,300,20);
+		
 		// adds all the GUI to our frame
 		
+		frame.add(resetbutton);
 		frame.add(counter);
 		frame.add(idlecounter);
 		frame.add(lifetimecounter);
@@ -237,6 +249,44 @@ public class PotatoClickGUI implements ActionListener {
 			idlecounter.setText(temp + " Potatoes/Sec");
 			counter.setText(potatoCounter+ " potatoes");
 			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+		}
+		
+		// when the player clicks the reset button
+		if (e.getSource() == resetbutton) {
+			int i = lifetimepotatoCounter;
+			timer.stop();
+			plusten=0; // +10 potatoes per click
+		    plustenprice = 100;
+		    plustenqty = 0;
+		    clickupgrade1.setText("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
+			plushundred=0; // +100 potatoes per click
+			plushundredprice = 1000;
+			plushundredqty = 0;
+		    clickupgrade2.setText("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
+			plusthousand=0; // +1000 potatoes per click
+			plusthousandprice = 10000;
+			plusthousandqty = 0;
+		    clickupgrade3.setText("1000 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+			autoone = 0; // +1 potatoes per second
+			autooneprice = 100;
+			autooneqty = 0;
+			autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
+			autoten = 0; // +10 potatoes per second
+			autotenprice = 1000;
+			autotenqty = 0;
+			autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
+			autohundred = 0; // +100 potatoes per second
+			autohundredprice = 10000;
+			autohundredqty = 0;
+			autoupgrade2.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
+			incrementer = 0;
+			autoincrementer = autoone + autoten + autohundred;
+			idlecounter.setText(autoincrementer + " Potatoes/Sec");
+			potatoCounter = 0;
+			counter.setText(potatoCounter+ " potatoes");
+			lifetimepotatoCounter = i;
+			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+			timer.start();
 		}
 		
 		// When the player clicks the upgrade buttons

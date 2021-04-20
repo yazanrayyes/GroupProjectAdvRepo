@@ -278,7 +278,7 @@ public class PotatoClickGUI implements ActionListener {
 			autohundred = 0; // +100 potatoes per second
 			autohundredprice = 10000;
 			autohundredqty = 0;
-			autoupgrade2.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
+			autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
 			incrementer = 0;
 			autoincrementer = autoone + autoten + autohundred;
 			idlecounter.setText(autoincrementer + " Potatoes/Sec");

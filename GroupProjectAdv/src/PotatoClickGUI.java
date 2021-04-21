@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import javax.sound.sampled.*;
+
 // Potato Clicker Project V.1 by Yazan, Khaled, Ismael
 // Updated 4/20
 
@@ -23,7 +25,7 @@ Future Additions:
 Save system
 Achievements
 Leaderboard
-Reset button
+Reset button x
 More upgrades
 Improved graphics and UI
 Improved gameplay
@@ -223,6 +225,41 @@ public class PotatoClickGUI implements ActionListener {
 	public static void main (String args[]) {
 		new PotatoClickGUI();
 	}
+	
+	public void setup(int i) { // sets up our variables (will work on this later)
+		plusten=0; // +10 potatoes per click
+	    plustenprice = 100;
+	    plustenqty = 0;
+	    clickupgrade1.setText("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
+		plushundred=0; // +100 potatoes per click
+		plushundredprice = 1000;
+		plushundredqty = 0;
+	    clickupgrade2.setText("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
+		plusthousand=0; // +1000 potatoes per click
+		plusthousandprice = 10000;
+		plusthousandqty = 0;
+	    clickupgrade3.setText("1000 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+		autoone = 0; // +1 potatoes per second
+		autooneprice = 100;
+		autooneqty = 0;
+		autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
+		autoten = 0; // +10 potatoes per second
+		autotenprice = 1000;
+		autotenqty = 0;
+		autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
+		autohundred = 0; // +100 potatoes per second
+		autohundredprice = 10000;
+		autohundredqty = 0;
+		autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
+		incrementer = 0;
+		autoincrementer = autoone + autoten + autohundred;
+		idlecounter.setText(autoincrementer + " Potatoes/Sec");
+		potatoCounter = 0;
+		counter.setText(potatoCounter+ " potatoes");
+		lifetimepotatoCounter = i;
+		lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+		timer.start();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -253,40 +290,8 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// when the player clicks the reset button
 		if (e.getSource() == resetbutton) {
-			int i = lifetimepotatoCounter;
 			timer.stop();
-			plusten=0; // +10 potatoes per click
-		    plustenprice = 100;
-		    plustenqty = 0;
-		    clickupgrade1.setText("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
-			plushundred=0; // +100 potatoes per click
-			plushundredprice = 1000;
-			plushundredqty = 0;
-		    clickupgrade2.setText("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
-			plusthousand=0; // +1000 potatoes per click
-			plusthousandprice = 10000;
-			plusthousandqty = 0;
-		    clickupgrade3.setText("1000 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
-			autoone = 0; // +1 potatoes per second
-			autooneprice = 100;
-			autooneqty = 0;
-			autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
-			autoten = 0; // +10 potatoes per second
-			autotenprice = 1000;
-			autotenqty = 0;
-			autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
-			autohundred = 0; // +100 potatoes per second
-			autohundredprice = 10000;
-			autohundredqty = 0;
-			autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
-			incrementer = 0;
-			autoincrementer = autoone + autoten + autohundred;
-			idlecounter.setText(autoincrementer + " Potatoes/Sec");
-			potatoCounter = 0;
-			counter.setText(potatoCounter+ " potatoes");
-			lifetimepotatoCounter = i;
-			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
-			timer.start();
+			setup(lifetimepotatoCounter);
 		}
 		
 		// When the player clicks the upgrade buttons

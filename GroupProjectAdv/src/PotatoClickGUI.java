@@ -18,6 +18,7 @@ import javax.sound.sampled.*;
 
 // Potato Clicker Project V.2 by Yazan, Khaled, Ismael
 // Updated 4/22
+// 6.2 Version Progress
 
 /*
 

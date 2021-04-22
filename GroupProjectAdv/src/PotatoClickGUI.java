@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,8 +16,8 @@ import javax.swing.Timer;
 
 import javax.sound.sampled.*;
 
-// Potato Clicker Project V.1 by Yazan, Khaled, Ismael
-// Updated 4/20
+// Potato Clicker Project V.2 by Yazan, Khaled, Ismael
+// Updated 4/22
 
 /*
 
@@ -92,6 +93,11 @@ public class PotatoClickGUI implements ActionListener {
 	// Timer
 	
 	private Timer timer = new Timer(1000, this);
+	
+	// Audio
+	
+    AudioInputStream audio;
+    Clip audioclip;
 	
 	// Main Method / GUI
 	
@@ -226,7 +232,9 @@ public class PotatoClickGUI implements ActionListener {
 		new PotatoClickGUI();
 	}
 	
-	public void setup(int i) { // sets up our variables (will work on this later)
+	// sets up our variables (will work on this later)
+	
+	public void setup(int i) {
 		plusten=0; // +10 potatoes per click
 	    plustenprice = 100;
 	    plustenqty = 0;
@@ -260,6 +268,20 @@ public class PotatoClickGUI implements ActionListener {
 		lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
 		timer.start();
 	}
+	
+	// plays audio on click
+	
+    public void playaudio(String i) {
+        try {
+            audio = AudioSystem.getAudioInputStream(new File(i));
+            audioclip = AudioSystem.getClip();
+            audioclip.open(audio);
+            audioclip.start();
+        }
+        catch(Exception e) {
+            System.out.println(e.toString());
+        }
+    }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -267,6 +289,8 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the potato
 		
 		if (e.getSource() == potatoButton) {
+			playaudio("tick.wav");
+			
 			incrementer= 1 + plusten + plushundred + plusthousand;
 			potatoCounter+=incrementer; // increases potatoes counted on click
 			lifetimepotatoCounter+=incrementer; // increases lifetime potatoes on click
@@ -290,6 +314,7 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// when the player clicks the reset button
 		if (e.getSource() == resetbutton) {
+			playaudio("tick.wav");
 			timer.stop();
 			setup(lifetimepotatoCounter);
 		}
@@ -297,6 +322,7 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the upgrade buttons
 		
 		if (e.getSource() == clickupgrade1 && potatoCounter >= plustenprice) {
+			playaudio("orb.wav");
 			potatoCounter -= plustenprice;
 			
 			counter.setText(potatoCounter+ " potatoes");
@@ -308,6 +334,7 @@ public class PotatoClickGUI implements ActionListener {
 			plusten+=10;
 		}
 		if (e.getSource() == clickupgrade2 && potatoCounter >= plushundredprice) {
+			playaudio("orb.wav");
 			potatoCounter -= plushundredprice;
 			
 			counter.setText(potatoCounter+ " potatoes");
@@ -319,6 +346,7 @@ public class PotatoClickGUI implements ActionListener {
 			plushundred+=100;
 		}
 		if (e.getSource() == clickupgrade3 && potatoCounter >= plusthousandprice) {
+			playaudio("orb.wav");
 			potatoCounter -= plusthousandprice;
 			
 			counter.setText(potatoCounter+ " potatoes");
@@ -334,6 +362,7 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the clicker buttons
 		
 		if (e.getSource() == autoupgrade1 && potatoCounter >= autooneprice) {
+			playaudio("orb.wav");
 			potatoCounter -= autooneprice;
 			autoone+=1;
 			
@@ -342,6 +371,7 @@ public class PotatoClickGUI implements ActionListener {
 			autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
 		}
 		if (e.getSource() == autoupgrade2 && potatoCounter >= autotenprice) {
+			playaudio("orb.wav");
 			potatoCounter -= autotenprice;
 			autoten+=10;
 			
@@ -350,6 +380,7 @@ public class PotatoClickGUI implements ActionListener {
 			autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
 		}
 		if (e.getSource() == autoupgrade3 && potatoCounter >= autohundredprice) {
+			playaudio("orb.wav");
 			potatoCounter -= autohundredprice;
 			autohundred+=100;
 			

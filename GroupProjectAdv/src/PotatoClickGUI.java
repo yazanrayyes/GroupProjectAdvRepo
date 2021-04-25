@@ -42,8 +42,8 @@ public class PotatoClickGUI implements ActionListener {
 	// GUI Stuff
 	
 	JFrame frame; // our frame
-	private JButton potatoButton; // potato clickable area
-	private ImageIcon potato; // the image for the potato
+	private JButton clicker; // potato clickable area
+	private ImageIcon avatar; // the image for the potato
 	JLabel counter; // counts the amount of potatoes collected
 	JLabel idlecounter; // potatoes per second
 	JLabel lifetimecounter; // counts the amount of potatoes collected over the course of the game
@@ -57,7 +57,7 @@ public class PotatoClickGUI implements ActionListener {
 	private JButton autoupgrade3;
 	
 	private JButton resetbutton;
-	
+		
 	// Counters
 	
 	int potatoCounter = 0; // counts the number of potatoes
@@ -112,8 +112,8 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// creates scaled imageIcon here
 		
-		potato = new ImageIcon("src\\potato.png");
-		Image originalPotato = potato.getImage();
+		avatar = new ImageIcon("src\\potato.png");
+		Image originalPotato = avatar.getImage();
 		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon potato= new ImageIcon (scaled);
 		
@@ -121,12 +121,12 @@ public class PotatoClickGUI implements ActionListener {
 		
 		Panel potatoPanel = new Panel();
 		potatoPanel.setBounds(300, 200, 500, 200);
-		potatoButton = new JButton();
-		potatoButton.setBackground(Color.gray);
-		potatoButton.setIcon(potato);
-		potatoButton.setBorder(null); //to avoid the blue border on potato
-		potatoButton.addActionListener(this);
-		potatoPanel.add(potatoButton);
+		clicker = new JButton();
+		clicker.setBackground(Color.gray);
+		clicker.setIcon(potato);
+		clicker.setBorder(null); //to avoid the blue border on potato
+		clicker.addActionListener(this);
+		potatoPanel.add(clicker);
 		frame.add(potatoPanel);
 		
 		// CURRENTLY NON-FUNCTIONAL here you can buy autoclickers to click the potato automatically for you
@@ -141,8 +141,7 @@ public class PotatoClickGUI implements ActionListener {
 		autoupgradelabel.setForeground(Color.white);
 		autoupgradePanel.add(autoupgradelabel);
 		autoupgradePanel.setBackground(Color.gray);
-		
-		// some dummy clickers, will make them work later
+	
 		
 		autoupgrade1 = new JButton("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
 		autoupgrade1.addActionListener(this);
@@ -289,7 +288,7 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// When the player clicks the potato
 		
-		if (e.getSource() == potatoButton) {
+		if (e.getSource() == clicker) {
 			playaudio("tick.wav");
 			
 			incrementer= 1 + plusten + plushundred + plusthousand;

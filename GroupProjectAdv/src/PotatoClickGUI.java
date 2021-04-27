@@ -33,7 +33,7 @@ Improved graphics and UI
 Improved gameplay
 Music
 Optimized code
-
+Avatar change
 */
 
 

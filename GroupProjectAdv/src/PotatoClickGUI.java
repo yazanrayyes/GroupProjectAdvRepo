@@ -68,6 +68,9 @@ public class PotatoClickGUI implements ActionListener {
 	int autohundredprice = 10000;
 	int autohundredqty = 0;
 	
+	//
+	
+	
 	// Timer
 	
 	private Timer timer = new Timer(1000, this);

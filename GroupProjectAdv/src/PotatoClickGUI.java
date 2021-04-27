@@ -107,6 +107,7 @@ public class PotatoClickGUI implements ActionListener {
 	public PotatoClickGUI() {
 		
 		potatoCounter = 0;
+		name="potato";
 		
 		// creates frame
 		
@@ -404,9 +405,15 @@ public class PotatoClickGUI implements ActionListener {
 				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 				ImageIcon onion= new ImageIcon (scaled);
 				clicker.setIcon(onion);
+				name="onion";
 		}
-			if (name=="onion") {
-				
+			else if (name=="onion") {
+				avatar = new ImageIcon("src\\potato.png");
+				Image originalPotato = avatar.getImage();
+				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
+				ImageIcon potato= new ImageIcon (scaled);
+				clicker.setIcon(potato);
+				name="potato";
 			}
 			
 		}

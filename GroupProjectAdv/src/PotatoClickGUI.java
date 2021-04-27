@@ -107,7 +107,7 @@ public class PotatoClickGUI implements ActionListener {
 	public PotatoClickGUI() {
 		
 		potatoCounter = 0;
-		name="potato";
+		name="potatoes";
 		
 		// creates frame
 		
@@ -171,26 +171,26 @@ public class PotatoClickGUI implements ActionListener {
 		
 		// some dummy clickers, will make them work later
 		
-		clickupgrade1 = new JButton("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
+		clickupgrade1 = new JButton("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
 		clickupgrade1.addActionListener(this);
 		clickupgradePanel.add(clickupgrade1);
-		clickupgrade2 = new JButton("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
+		clickupgrade2 = new JButton("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
 		clickupgrade2.addActionListener(this);
 		clickupgradePanel.add(clickupgrade2);
-		clickupgrade3 = new JButton("1000 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+		clickupgrade3 = new JButton("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
 		clickupgrade3.addActionListener(this);
 		clickupgradePanel.add(clickupgrade3);
 		
 		// counter counts the number of potatoes gathered
 		
-		counter=new JLabel(potatoCounter +" potatoes");
+		counter=new JLabel(potatoCounter +" "+name);
 		counter.setForeground(Color.white);
 		counter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		counter.setBounds(450,60,500,100);
 		
 		// counter counts the number of potatoes gathered throughout the game
 		
-		lifetimecounter=new JLabel("total potatoes gathered: " + lifetimepotatoCounter);
+		lifetimecounter=new JLabel("total "+name+" gathered: " + lifetimepotatoCounter);
 		lifetimecounter.setForeground(Color.white);
 		lifetimecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		lifetimecounter.setBounds(350,500,400,100);
@@ -198,7 +198,7 @@ public class PotatoClickGUI implements ActionListener {
 		// displays potatoes gathered per second as the player idles
 		
 		autoincrementer = autoone + autoten + autohundred;
-		idlecounter=new JLabel(autoincrementer + " Potatoes/Sec");
+		idlecounter=new JLabel(autoincrementer + " "+name+"/Sec");
 		idlecounter.setForeground(Color.white);
 		idlecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		idlecounter.setBounds(450,100,200,100);
@@ -247,15 +247,15 @@ public class PotatoClickGUI implements ActionListener {
 		plusten=0; // +10 potatoes per click
 	    plustenprice = 100;
 	    plustenqty = 0;
-	    clickupgrade1.setText("10 Potatoes (" + plustenqty + ") [" + plustenprice + "p]");
+	    clickupgrade1.setText("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
 		plushundred=0; // +100 potatoes per click
 		plushundredprice = 1000;
 		plushundredqty = 0;
-	    clickupgrade2.setText("100 Potatoes (" + plushundredqty + ") [" + plushundredprice + "p]");
+	    clickupgrade2.setText("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
 		plusthousand=0; // +1000 potatoes per click
 		plusthousandprice = 10000;
 		plusthousandqty = 0;
-	    clickupgrade3.setText("1000 Potatoes (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+	    clickupgrade3.setText("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
 		autoone = 0; // +1 potatoes per second
 		autooneprice = 100;
 		autooneqty = 0;
@@ -270,11 +270,11 @@ public class PotatoClickGUI implements ActionListener {
 		autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
 		incrementer = 0;
 		autoincrementer = autoone + autoten + autohundred;
-		idlecounter.setText(autoincrementer + " Potatoes/Sec");
+		idlecounter.setText(autoincrementer + " "+name+"/Sec");
 		potatoCounter = 0;
-		counter.setText(potatoCounter+ " potatoes");
+		counter.setText(potatoCounter+ " "+name);
 		lifetimepotatoCounter = i;
-		lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+		lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
 		timer.start();
 	}
 	
@@ -306,8 +306,8 @@ public class PotatoClickGUI implements ActionListener {
 			
 			// updates GUI
 			
-			counter.setText(potatoCounter+ " potatoes");
-			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+			counter.setText(potatoCounter+ " "+name);
+			lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
 			
 		}
 		
@@ -316,9 +316,9 @@ public class PotatoClickGUI implements ActionListener {
 			int temp = autoone + autoten + autohundred;
 			potatoCounter += temp;
 			lifetimepotatoCounter += temp;
-			idlecounter.setText(temp + " Potatoes/Sec");
-			counter.setText(potatoCounter+ " potatoes");
-			lifetimecounter.setText("total potatoes gathered: " + lifetimepotatoCounter);
+			idlecounter.setText(temp + " "+name+"/Sec");
+			counter.setText(potatoCounter+ " "+name);
+			lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
 		}
 		
 		// when the player clicks the reset button
@@ -334,7 +334,7 @@ public class PotatoClickGUI implements ActionListener {
 			playaudio("orb.wav");
 			potatoCounter -= plustenprice;
 			
-			counter.setText(potatoCounter+ " potatoes");
+			counter.setText(potatoCounter+ " "+name);
 			
 			plustenqty += 1;
 			plustenprice+=100;
@@ -346,7 +346,7 @@ public class PotatoClickGUI implements ActionListener {
 			playaudio("orb.wav");
 			potatoCounter -= plushundredprice;
 			
-			counter.setText(potatoCounter+ " potatoes");
+			counter.setText(potatoCounter+ " "+name);
 			
 			plushundredqty += 1;
 			plushundredprice+=1000;
@@ -358,7 +358,7 @@ public class PotatoClickGUI implements ActionListener {
 			playaudio("orb.wav");
 			potatoCounter -= plusthousandprice;
 			
-			counter.setText(potatoCounter+ " potatoes");
+			counter.setText(potatoCounter+ " "+name);
 			
 			plusthousandqty += 1;
 			plusthousandprice+=10000;
@@ -399,21 +399,25 @@ public class PotatoClickGUI implements ActionListener {
 			
 		}
 		if (e.getSource()==changeAvatar) {
-			if (name=="potato") {
+			if (name=="potatoes") {
 				avatar = new ImageIcon("src\\onion.png");
 				Image originalPotato = avatar.getImage();
 				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 				ImageIcon onion= new ImageIcon (scaled);
 				clicker.setIcon(onion);
-				name="onion";
+				name="onions";
+				counter.setText(potatoCounter+ " "+name);
+				lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
 		}
-			else if (name=="onion") {
+			else if (name=="onions") {
 				avatar = new ImageIcon("src\\potato.png");
 				Image originalPotato = avatar.getImage();
 				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
 				ImageIcon potato= new ImageIcon (scaled);
 				clicker.setIcon(potato);
-				name="potato";
+				name="potatoes";
+				counter.setText(potatoCounter+ " "+name);
+				lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
 			}
 			
 		}

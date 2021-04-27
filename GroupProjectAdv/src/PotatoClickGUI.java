@@ -17,7 +17,7 @@ import javax.swing.Timer;
 import javax.sound.sampled.*;
 
 // Potato Clicker Project V.2 by Yazan, Khaled, Ismael
-// Updated 4/22
+// Updated 4/27
 // 6.2 Version Progress
 
 /*
@@ -92,6 +92,9 @@ public class PotatoClickGUI implements ActionListener {
 	int autohundred = 0; // +100 potatoes per second
 	int autohundredprice = 10000;
 	int autohundredqty = 0;
+	
+	//
+	
 	
 	// Timer
 	

@@ -58,6 +58,7 @@ public class PotatoClickGUI implements ActionListener {
 	
 	private JButton resetbutton;
 	private JButton changeAvatar;
+	private String name;
 		
 	// Counters
 	
@@ -397,11 +398,17 @@ public class PotatoClickGUI implements ActionListener {
 			
 		}
 		if (e.getSource()==changeAvatar) {
-			avatar = new ImageIcon("src\\onion.png");
-			Image originalPotato = avatar.getImage();
-			Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
-			ImageIcon onion= new ImageIcon (scaled);
-			clicker.setIcon(onion);
+			if (name=="potato") {
+				avatar = new ImageIcon("src\\onion.png");
+				Image originalPotato = avatar.getImage();
+				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
+				ImageIcon onion= new ImageIcon (scaled);
+				clicker.setIcon(onion);
+		}
+			if (name=="onion") {
+				
+			}
+			
 		}
 	}
 }

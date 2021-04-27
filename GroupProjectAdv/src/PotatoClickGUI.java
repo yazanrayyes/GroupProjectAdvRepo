@@ -57,6 +57,7 @@ public class PotatoClickGUI implements ActionListener {
 	private JButton autoupgrade3;
 	
 	private JButton resetbutton;
+	private JButton changeAvatar;
 		
 	// Counters
 	
@@ -206,9 +207,15 @@ public class PotatoClickGUI implements ActionListener {
 		resetbutton.addActionListener(this);
 		resetbutton.setBounds(40,20,300,20);
 		
+		//changes to Onion avatar
+		changeAvatar= new JButton("Change Avatar");
+		changeAvatar.addActionListener(this);
+		changeAvatar.setBounds(40,550,200,20);
+		
 		// adds all the GUI to our frame
 		
 		frame.add(resetbutton);
+		frame.add(changeAvatar);
 		frame.add(counter);
 		frame.add(idlecounter);
 		frame.add(lifetimecounter);
@@ -388,6 +395,13 @@ public class PotatoClickGUI implements ActionListener {
 			autohundredprice+=1000;
 			autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
 			
+		}
+		if (e.getSource()==changeAvatar) {
+			avatar = new ImageIcon("src\\onion.png");
+			Image originalPotato = avatar.getImage();
+			Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
+			ImageIcon onion= new ImageIcon (scaled);
+			clicker.setIcon(onion);
 		}
 	}
 }

@@ -408,6 +408,9 @@ public class PotatoClickGUI implements ActionListener {
 				name="onions";
 				counter.setText(potatoCounter+ " "+name);
 				lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
+				clickupgrade1.setText("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
+				clickupgrade2.setText("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
+				clickupgrade3.setText("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
 		}
 			else if (name=="onions") {
 				avatar = new ImageIcon("src\\potato.png");
@@ -418,6 +421,9 @@ public class PotatoClickGUI implements ActionListener {
 				name="potatoes";
 				counter.setText(potatoCounter+ " "+name);
 				lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
+				clickupgrade1.setText("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
+				clickupgrade2.setText("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
+				clickupgrade3.setText("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
 			}
 			
 		}

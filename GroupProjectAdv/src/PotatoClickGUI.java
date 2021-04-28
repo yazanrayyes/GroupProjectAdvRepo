@@ -1,4 +1,3 @@
-
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,9 +21,7 @@ import javax.sound.sampled.*;
 // 6.2 Final Version
 
 /*
-
 Future Additions:
-
 Save system
 Achievements
 Leaderboard

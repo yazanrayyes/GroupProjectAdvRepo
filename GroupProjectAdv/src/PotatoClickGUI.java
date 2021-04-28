@@ -499,6 +499,9 @@ public class PotatoClickGUI implements ActionListener {
 				musicbutton.setText("'Jueputa'");
 				playmusic("jueputatrack.wav");
 			}
+			if (choice.equals("no music")) {
+				musicbutton.setText("no music");
+			}
 		}
 
 	}

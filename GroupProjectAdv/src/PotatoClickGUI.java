@@ -478,23 +478,23 @@ public class PotatoClickGUI implements ActionListener {
 			}
 			if (choice.equals("'Pizza Parlor'")) {
 				musicbutton.setText("'Pizza Parlor'");
-				playmusic("penguintrack.wav");
+				playmusic("src\\penguintrack.wav");
 			}
 			if (choice.equals("'Bodies'")) {
 				musicbutton.setText("'Bodies'");
-				playmusic("bodiestrack.wav");
+				playmusic("src\\bodiestrack.wav");
 			}
 			if (choice.equals("'Among Us'")) {
 				musicbutton.setText("'Among Us'");
-				playmusic("amogustrack.wav");
+				playmusic("src\\amogustrack.wav");
 			}
 			if (choice.equals("'Chug Jug'")) {
 				musicbutton.setText("'Chug Jug'");
-				playmusic("chugjugtrack.wav");
+				playmusic("src\\chugjugtrack.wav");
 			}
 			if (choice.equals("'Jueputa'")) {
 				musicbutton.setText("'Jueputa'");
-				playmusic("jueputatrack.wav");
+				playmusic("src\\jueputatrack.wav");
 			}
 			if (choice.equals("no music")) {
 				musicbutton.setText("no music");

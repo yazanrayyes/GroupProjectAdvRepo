@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 
 import javax.swing.ImageIcon;
@@ -22,7 +24,7 @@ import javax.sound.sampled.*;
 
 /*
 Future Additions:
-Save system
+Save system x
 Achievements
 Leaderboard
 Reset button x
@@ -34,9 +36,8 @@ Optimized code
 Avatar change x
  */
 
-// test
 
-public class PotatoClickGUI implements ActionListener {
+public class PotatoClickGUI implements ActionListener, WindowListener {
 
 	// GUI Stuff
 
@@ -59,39 +60,6 @@ public class PotatoClickGUI implements ActionListener {
 	private JButton changeAvatar;
 	private String name;
 
-	// Counters
-
-	int potatoCounter = 0; // counts the number of potatoes
-	int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
-	int incrementer; //the amount of potatoes added (used to activate powerups)
-	int autoincrementer; // the amount of potatoes added automatically
-
-	// Upgrades
-
-	int plusten=0; // +10 potatoes per click
-	int plustenprice = 100;
-	int plustenqty = 0;
-
-	int plushundred=0; // +100 potatoes per click
-	int plushundredprice = 1000;
-	int plushundredqty = 0;
-
-	int plusthousand=0; // +1000 potatoes per click
-	int plusthousandprice = 10000;
-	int plusthousandqty = 0;
-
-	int autoone = 0; // +1 potatoes per second
-	int autooneprice = 100;
-	int autooneqty = 0;
-
-	int autoten = 0; // +10 potatoes per second
-	int autotenprice = 1000;
-	int autotenqty = 0;
-
-	int autohundred = 0; // +100 potatoes per second
-	int autohundredprice = 10000;
-	int autohundredqty = 0;
-
 	// Timer
 
 	private Timer timer = new Timer(1000, this);
@@ -103,14 +71,14 @@ public class PotatoClickGUI implements ActionListener {
 	Clip musicclip;
 	Choice musicchoice;
 	JButton musicbutton;
-
+	
 	// Main Method / GUI
 
 	public PotatoClickGUI() {
-
-		potatoCounter = 0;
+		
+		Variables.potatoCounter = 0;
 		name="potatoes";
-
+		
 		// creates frame
 
 		JFrame frame = new JFrame("Potato Clicker");
@@ -149,13 +117,13 @@ public class PotatoClickGUI implements ActionListener {
 
 		// our autoclicker upgrade buttons
 
-		autoupgrade1 = new JButton("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
+		autoupgrade1 = new JButton("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
 		autoupgrade1.addActionListener(this);
 		autoupgradePanel.add(autoupgrade1);
-		autoupgrade2 = new JButton("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
+		autoupgrade2 = new JButton("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
 		autoupgrade2.addActionListener(this);
 		autoupgradePanel.add(autoupgrade2);
-		autoupgrade3 = new JButton("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
+		autoupgrade3 = new JButton("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
 		autoupgrade3.addActionListener(this);
 		autoupgradePanel.add(autoupgrade3);
 
@@ -174,34 +142,34 @@ public class PotatoClickGUI implements ActionListener {
 
 		// our upgrade buttons
 
-		clickupgrade1 = new JButton("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
+		clickupgrade1 = new JButton("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
 		clickupgrade1.addActionListener(this);
 		clickupgradePanel.add(clickupgrade1);
-		clickupgrade2 = new JButton("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
+		clickupgrade2 = new JButton("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
 		clickupgrade2.addActionListener(this);
 		clickupgradePanel.add(clickupgrade2);
-		clickupgrade3 = new JButton("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+		clickupgrade3 = new JButton("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
 		clickupgrade3.addActionListener(this);
 		clickupgradePanel.add(clickupgrade3);
 
 		// counter counts the number of potatoes gathered
 
-		counter=new JLabel(potatoCounter +" "+name);
+		counter=new JLabel(Variables.potatoCounter +" "+name);
 		counter.setForeground(Color.white);
 		counter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		counter.setBounds(450,60,500,100);
 
 		// counter counts the number of potatoes gathered throughout the game
 
-		lifetimecounter=new JLabel("total "+name+" gathered: " + lifetimepotatoCounter);
+		lifetimecounter=new JLabel("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 		lifetimecounter.setForeground(Color.white);
 		lifetimecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		lifetimecounter.setBounds(350,500,400,100);
 
 		// displays potatoes gathered per second as the player idles
 
-		autoincrementer = autoone + autoten + autohundred;
-		idlecounter=new JLabel(autoincrementer + " "+name+"/Sec");
+		Variables.autoincrementer = Variables.autoone + Variables.autoten + Variables.autohundred;
+		idlecounter=new JLabel(Variables.autoincrementer + " "+name+"/Sec");
 		idlecounter.setForeground(Color.white);
 		idlecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
 		idlecounter.setBounds(450,100,200,100);
@@ -251,55 +219,79 @@ public class PotatoClickGUI implements ActionListener {
 		frame.setFocusable(true);
 		frame.setSize(1000,620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(this);
 		frame.setVisible(true);
 
 		// starts our timer
 
 		timer.start();
+		load();
 
 	}
 
 	public static void main (String args[]) {
 		new PotatoClickGUI();
 	}
-
+	
+	public void load() {
+		
+		Variables.loadgame();
+        
+        timer.stop();
+        
+        clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+		autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
+		autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
+		autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
+		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
+		counter.setText(Variables.potatoCounter+ " "+name);
+		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
+		
+		timer.start();
+        
+	}
+	//Integer.parseInt(
 	// sets up our variables (will work on this later)
+	
+	
 
-	public void setup(int i) {
-		plusten=0; // +10 potatoes per click
-		plustenprice = 100;
-		plustenqty = 0;
-		clickupgrade1.setText("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
-		plushundred=0; // +100 potatoes per click
-		plushundredprice = 1000;
-		plushundredqty = 0;
-		clickupgrade2.setText("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
-		plusthousand=0; // +1000 potatoes per click
-		plusthousandprice = 10000;
-		plusthousandqty = 0;
-		clickupgrade3.setText("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
-		autoone = 0; // +1 potatoes per second
-		autooneprice = 100;
-		autooneqty = 0;
-		autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
-		autoten = 0; // +10 potatoes per second
-		autotenprice = 1000;
-		autotenqty = 0;
-		autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
-		autohundred = 0; // +100 potatoes per second
-		autohundredprice = 10000;
-		autohundredqty = 0;
-		autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
-		incrementer = 0;
-		autoincrementer = autoone + autoten + autohundred;
-		idlecounter.setText(autoincrementer + " "+name+"/Sec");
-		potatoCounter = 0;
-		counter.setText(potatoCounter+ " "+name);
-		lifetimepotatoCounter = i;
-		lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
+	public void reset(int i) {
+		Variables.plusten=0; // +10 potatoes per click
+		Variables.plustenprice = 100;
+		Variables.plustenqty = 0;
+		clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+		Variables.plushundred=0; // +100 potatoes per click
+		Variables.plushundredprice = 1000;
+		Variables.plushundredqty = 0;
+		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+		Variables.plusthousand=0; // +1000 potatoes per click
+		Variables.plusthousandprice = 10000;
+		Variables.plusthousandqty = 0;
+		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+		Variables.autoone = 0; // +1 potatoes per second
+		Variables.autooneprice = 100;
+		Variables.autooneqty = 0;
+		autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
+		Variables.autoten = 0; // +10 potatoes per second
+		Variables.autotenprice = 1000;
+		Variables.autotenqty = 0;
+		autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
+		Variables.autohundred = 0; // +100 potatoes per second
+		Variables.autohundredprice = 10000;
+		Variables.autohundredqty = 0;
+		autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
+		Variables.incrementer = 0;
+		Variables.autoincrementer = Variables.autoone + Variables.autoten + Variables.autohundred;
+		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
+		Variables.potatoCounter = 0;
+		counter.setText(Variables.potatoCounter+ " "+name);
+		Variables.lifetimepotatoCounter = i;
+		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 		timer.start();
 	}
-
+	
 	// plays FX audio on click
 
 	public void playaudio(String i) {
@@ -335,111 +327,111 @@ public class PotatoClickGUI implements ActionListener {
 		// When the player clicks the potato
 
 		if (e.getSource() == clicker) {
-			playaudio("tick.wav");
+			playaudio("src//tick.wav");
 
-			incrementer= 1 + plusten + plushundred + plusthousand;
-			potatoCounter+=incrementer; // increases potatoes counted on click
-			lifetimepotatoCounter+=incrementer; // increases lifetime potatoes on click
+			Variables.incrementer= 1 + Variables.plusten + Variables.plushundred + Variables.plusthousand;
+			Variables.potatoCounter+=Variables.incrementer; // increases potatoes counted on click
+			Variables.lifetimepotatoCounter+=Variables.incrementer; // increases lifetime potatoes on click
 
 			// updates GUI
 
-			counter.setText(potatoCounter+ " "+name);
-			lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
+			counter.setText(Variables.potatoCounter+ " "+name);
+			lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 
 		}
 
 		// timer updates every 1000 milliseconds (one second)
 		if (e.getSource() == timer) {
-			int temp = autoone + autoten + autohundred;
-			potatoCounter += temp;
-			lifetimepotatoCounter += temp;
+			int temp = Variables.autoone + Variables.autoten + Variables.autohundred;
+			Variables.potatoCounter += temp;
+			Variables.lifetimepotatoCounter += temp;
 			idlecounter.setText(temp + " "+name+"/Sec");
-			counter.setText(potatoCounter+ " "+name);
-			lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
+			counter.setText(Variables.potatoCounter+ " "+name);
+			lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 		}
 
 		// when the player clicks the reset button
 		if (e.getSource() == resetbutton) {
-			playaudio("tick.wav");
+			playaudio("src//tick.wav");
 			timer.stop();
-			setup(lifetimepotatoCounter);
+			reset(Variables.lifetimepotatoCounter);
 		}
 
 		// When the player clicks the upgrade buttons
 
-		if (e.getSource() == clickupgrade1 && potatoCounter >= plustenprice) {
-			playaudio("orb.wav");
-			potatoCounter -= plustenprice;
+		if (e.getSource() == clickupgrade1 && Variables.potatoCounter >= Variables.plustenprice) {
+			playaudio("src//orb.wav");
+			Variables.potatoCounter -= Variables.plustenprice;
 
-			counter.setText(potatoCounter+ " "+name);
+			counter.setText(Variables.potatoCounter+ " "+name);
 
-			plustenqty += 1;
-			plustenprice+=100;
-			clickupgrade1.setText("10 " + name + " (" + plustenqty + ") [" + plustenprice + "p]");
+			Variables.plustenqty += 1;
+			Variables.plustenprice+=100;
+			clickupgrade1.setText("10 " + name + " (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
 
-			plusten+=10;
+			Variables.plusten+=10;
 		}
-		if (e.getSource() == clickupgrade2 && potatoCounter >= plushundredprice) {
-			playaudio("orb.wav");
-			potatoCounter -= plushundredprice;
+		if (e.getSource() == clickupgrade2 && Variables.potatoCounter >= Variables.plushundredprice) {
+			playaudio("src//orb.wav");
+			Variables.potatoCounter -= Variables.plushundredprice;
 
-			counter.setText(potatoCounter+ " "+name);
+			counter.setText(Variables.potatoCounter+ " "+name);
 
-			plushundredqty += 1;
-			plushundredprice+=1000;
-			clickupgrade2.setText("100 " + name + " (" + plushundredqty + ") [" + plushundredprice + "p]");
+			Variables.plushundredqty += 1;
+			Variables.plushundredprice+=1000;
+			clickupgrade2.setText("100 " + name + " (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
 
-			plushundred+=100;
+			Variables.plushundred+=100;
 		}
-		if (e.getSource() == clickupgrade3 && potatoCounter >= plusthousandprice) {
-			playaudio("orb.wav");
-			potatoCounter -= plusthousandprice;
+		if (e.getSource() == clickupgrade3 && Variables.potatoCounter >= Variables.plusthousandprice) {
+			playaudio("src//orb.wav");
+			Variables.potatoCounter -= Variables.plusthousandprice;
 
-			counter.setText(potatoCounter+ " "+name);
+			counter.setText(Variables.potatoCounter+ " "+name);
 
-			plusthousandqty += 1;
-			plusthousandprice+=10000;
-			clickupgrade3.setText("1000 " + name + " (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+			Variables.plusthousandqty += 1;
+			Variables.plusthousandprice+=10000;
+			clickupgrade3.setText("1000 " + name + " (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
 
 
-			plusthousand+=1000;
+			Variables.plusthousand+=1000;
 		}
 
 		// When the player clicks the clicker buttons
 
-		if (e.getSource() == autoupgrade1 && potatoCounter >= autooneprice) {
-			playaudio("orb.wav");
-			potatoCounter -= autooneprice;
-			autoone+=1;
+		if (e.getSource() == autoupgrade1 && Variables.potatoCounter >= Variables.autooneprice) {
+			playaudio("src//orb.wav");
+			Variables.potatoCounter -= Variables.autooneprice;
+			Variables.autoone+=1;
 
-			autooneqty += 1;
-			autooneprice+=10;
-			autoupgrade1.setText("+1 P/Sec (" + autooneqty + ") [" + autooneprice + "p]");
+			Variables.autooneqty += 1;
+			Variables.autooneprice+=10;
+			autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
 		}
-		if (e.getSource() == autoupgrade2 && potatoCounter >= autotenprice) {
-			playaudio("orb.wav");
-			potatoCounter -= autotenprice;
-			autoten+=10;
+		if (e.getSource() == autoupgrade2 && Variables.potatoCounter >= Variables.autotenprice) {
+			playaudio("src//orb.wav");
+			Variables.potatoCounter -= Variables.autotenprice;
+			Variables.autoten+=10;
 
-			autotenqty += 1;
-			autotenprice+=100;
-			autoupgrade2.setText("+10 P/Sec (" + autotenqty + ") [" + autotenprice + "p]");
+			Variables.autotenqty += 1;
+			Variables.autotenprice+=100;
+			autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
 		}
-		if (e.getSource() == autoupgrade3 && potatoCounter >= autohundredprice) {
-			playaudio("orb.wav");
-			potatoCounter -= autohundredprice;
-			autohundred+=100;
+		if (e.getSource() == autoupgrade3 && Variables.potatoCounter >= Variables.autohundredprice) {
+			playaudio("src//orb.wav");
+			Variables.potatoCounter -= Variables.autohundredprice;
+			Variables.autohundred+=100;
 
-			autohundredqty += 1;
-			autohundredprice+=1000;
-			autoupgrade3.setText("+100 P/Sec (" + autohundredqty + ") [" + autohundredprice + "p]");
+			Variables.autohundredqty += 1;
+			Variables.autohundredprice+=1000;
+			autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
 
 		}
 
 		// when the player selects the change avatar button
 
 		if (e.getSource()==changeAvatar) {
-			playaudio("tick.wav");
+			playaudio("src//tick.wav");
 			if (name=="potatoes") {
 				avatar = new ImageIcon("src\\onion.png");
 				Image originalPotato = avatar.getImage();
@@ -447,11 +439,11 @@ public class PotatoClickGUI implements ActionListener {
 				ImageIcon onion= new ImageIcon (scaled);
 				clicker.setIcon(onion);
 				name="onions";
-				counter.setText(potatoCounter+ " "+name);
-				lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
-				clickupgrade1.setText("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
-				clickupgrade2.setText("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
-				clickupgrade3.setText("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+				counter.setText(Variables.potatoCounter+ " "+name);
+				lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
+				clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+				clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+				clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
 			}
 			else if (name=="onions") {
 				avatar = new ImageIcon("src\\potato.png");
@@ -460,11 +452,11 @@ public class PotatoClickGUI implements ActionListener {
 				ImageIcon potato= new ImageIcon (scaled);
 				clicker.setIcon(potato);
 				name="potatoes";
-				counter.setText(potatoCounter+ " "+name);
-				lifetimecounter.setText("total "+name+" gathered: " + lifetimepotatoCounter);
-				clickupgrade1.setText("10 "+name+" (" + plustenqty + ") [" + plustenprice + "p]");
-				clickupgrade2.setText("100 "+name+" (" + plushundredqty + ") [" + plushundredprice + "p]");
-				clickupgrade3.setText("1000 "+name+" (" + plusthousandqty + ") [" + plusthousandprice + "p]");
+				counter.setText(Variables.potatoCounter+ " "+name);
+				lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
+				clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+				clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+				clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
 			}
 
 		}
@@ -472,7 +464,7 @@ public class PotatoClickGUI implements ActionListener {
 		// when the player selects the music button
 
 		if (e.getSource()==musicbutton) {
-			playaudio("tick.wav");
+			playaudio("src//tick.wav");
 			String choice = musicchoice.getSelectedItem();
 			if (musicclip!=null) {
 				musicclip.stop();
@@ -503,4 +495,50 @@ public class PotatoClickGUI implements ActionListener {
 		}
 
 	}
+	
+	// Annoying imported methods I can't get rid of
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		Variables.savegame();
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

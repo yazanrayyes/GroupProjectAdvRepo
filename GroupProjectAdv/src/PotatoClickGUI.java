@@ -18,9 +18,8 @@ import javax.swing.Timer;
 
 import javax.sound.sampled.*;
 
-// Potato Clicker Project V.2 by Yazan, Khaled, Ismael
-// Updated 4/27
-// 6.2 Final Version
+// Potato Clicker Project V.3 by Yazan, Khaled, Ismael
+// Updated 5/9
 
 /*
 Future Additions:
@@ -257,38 +256,22 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	
 	
 
-	public void reset(int i) {
-		Variables.plusten=0; // +10 potatoes per click
-		Variables.plustenprice = 100;
-		Variables.plustenqty = 0;
+	public void reset() {
+		
+		Variables.resetgame();
+		
+		timer.stop();
+		
 		clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-		Variables.plushundred=0; // +100 potatoes per click
-		Variables.plushundredprice = 1000;
-		Variables.plushundredqty = 0;
 		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-		Variables.plusthousand=0; // +1000 potatoes per click
-		Variables.plusthousandprice = 10000;
-		Variables.plusthousandqty = 0;
 		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
-		Variables.autoone = 0; // +1 potatoes per second
-		Variables.autooneprice = 100;
-		Variables.autooneqty = 0;
 		autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
-		Variables.autoten = 0; // +10 potatoes per second
-		Variables.autotenprice = 1000;
-		Variables.autotenqty = 0;
 		autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
-		Variables.autohundred = 0; // +100 potatoes per second
-		Variables.autohundredprice = 10000;
-		Variables.autohundredqty = 0;
 		autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
-		Variables.incrementer = 0;
-		Variables.autoincrementer = Variables.autoone + Variables.autoten + Variables.autohundred;
 		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
-		Variables.potatoCounter = 0;
 		counter.setText(Variables.potatoCounter+ " "+name);
-		Variables.lifetimepotatoCounter = i;
 		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
+		
 		timer.start();
 	}
 	
@@ -319,6 +302,21 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		catch(Exception e) {
 			System.out.println(e.toString());
 		}
+	}
+	
+	public void changeicon(String txtname, String imagename, ImageIcon iconname) {
+		
+		avatar = new ImageIcon(imagename);
+		Image originalPotato = avatar.getImage();
+		Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
+		iconname = new ImageIcon (scaled);
+		clicker.setIcon(iconname);
+		name = txtname;
+		counter.setText(Variables.potatoCounter+ " "+name);
+		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
+		clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
 	}
 
 	@Override
@@ -354,7 +352,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		if (e.getSource() == resetbutton) {
 			playaudio("src//tick.wav");
 			timer.stop();
-			reset(Variables.lifetimepotatoCounter);
+			reset();
 		}
 
 		// When the player clicks the upgrade buttons
@@ -432,33 +430,31 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 		if (e.getSource()==changeAvatar) {
 			playaudio("src//tick.wav");
+			
 			if (name=="potatoes") {
-				avatar = new ImageIcon("src\\onion.png");
-				Image originalPotato = avatar.getImage();
-				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
-				ImageIcon onion= new ImageIcon (scaled);
-				clicker.setIcon(onion);
-				name="onions";
-				counter.setText(Variables.potatoCounter+ " "+name);
-				lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
-				clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-				clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-				clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+				ImageIcon onion = null;
+				changeicon("onions","src\\onion.png",onion);
 			}
 			else if (name=="onions") {
-				avatar = new ImageIcon("src\\potato.png");
-				Image originalPotato = avatar.getImage();
-				Image scaled= originalPotato.getScaledInstance(170, 170, java.awt.Image.SCALE_SMOOTH);
-				ImageIcon potato= new ImageIcon (scaled);
-				clicker.setIcon(potato);
-				name="potatoes";
-				counter.setText(Variables.potatoCounter+ " "+name);
-				lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
-				clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-				clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-				clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+				ImageIcon crewmate = null;
+				changeicon("crewmates","src\\crewmate.png",crewmate);
 			}
-
+			else if (name=="crewmates") {
+				ImageIcon faris = null;
+				changeicon("farises","src\\faris.png",faris);
+			}
+			else if (name=="farises") {
+				ImageIcon troll = null;
+				changeicon("trolls","src\\troll.png",troll);
+			}
+			else if (name=="trolls") {
+				ImageIcon namekian = null;
+				changeicon("namekians","src\\namekian.png",namekian);
+			}
+			else if (name=="namekians") {
+				ImageIcon potato = null;
+				changeicon("potatoes","src\\potato.png",potato);
+			}
 		}
 
 		// when the player selects the music button

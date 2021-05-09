@@ -111,4 +111,29 @@ public class Variables {
 		autohundredprice = intvalues.get(20);
 		autohundredqty = intvalues.get(21);
 	}
+
+	public static void resetgame() {
+		
+		potatoCounter = 0;
+		incrementer = 0;
+		autoincrementer = 0;
+		plusten =0;
+		plustenprice = 100;
+		plustenqty = 0;
+		plushundred = 0;
+		plushundredprice = 1000;
+		plushundredqty = 0;
+		plusthousand = 0;
+		plusthousandprice = 10000;
+		plusthousandqty = 0;
+		autoone = 0;
+		autooneprice = 100;
+		autooneqty = 0;
+		autoten = 0;
+		autotenprice = 1000;
+		autotenqty = 0;
+		autohundred = 0;
+		autohundredprice = 10000;
+		autohundredqty = 0;
+	}
 }

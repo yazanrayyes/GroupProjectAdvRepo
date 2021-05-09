@@ -34,6 +34,7 @@ Optimized code
 Avatar change x
  */
 
+// test
 
 public class PotatoClickGUI implements ActionListener {
 

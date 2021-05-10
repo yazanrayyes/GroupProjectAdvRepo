@@ -58,7 +58,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	private JButton resetbutton;
 	private JButton changeAvatar;
 	private String name;
-
+	private int prestige;
 	// Timer
 
 	private Timer timer = new Timer(1000, this);
@@ -77,7 +77,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		
 		Variables.potatoCounter = 0;
 		name="potatoes";
-		
+		prestige=100;
 		// creates frame
 
 		JFrame frame = new JFrame("Potato Clicker");
@@ -318,6 +318,15 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
 		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
 	}
+	
+	public void checkPrestige() {
+		if (Variables.lifetimepotatoCounter>prestige) {
+			playaudio("src//prestige.wav");
+			counter.setText("NEW LEVEL REACHED!!!");
+			lifetimecounter.setText("NEW LEVEL REACHED!!!");
+			prestige*=10;
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -335,7 +344,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 			counter.setText(Variables.potatoCounter+ " "+name);
 			lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
-
+			checkPrestige();
 		}
 
 		// timer updates every 1000 milliseconds (one second)

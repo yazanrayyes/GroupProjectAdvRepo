@@ -50,6 +50,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	private JButton clickupgrade1; // upgrades potatoes per click
 	private JButton clickupgrade2;
 	private JButton clickupgrade3;
+	private JLabel clickupgradelabel;
 
 	private JButton autoupgrade1; // upgrades auto clickers
 	private JButton autoupgrade2;
@@ -59,6 +60,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	private JButton changeAvatar;
 	private String name;
 	private int prestige;
+	private int prestigeCounter;
 	// Timer
 
 	private Timer timer = new Timer(1000, this);
@@ -78,6 +80,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		Variables.potatoCounter = 0;
 		name="potatoes";
 		prestige=100;
+		prestigeCounter=0;
 		// creates frame
 
 		JFrame frame = new JFrame("Potato Clicker");
@@ -133,7 +136,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		clickupgradePanel.setBounds(40, 300, 250, 200);
 		clickupgradePanel.setLayout(new GridLayout(4,1));
 
-		JLabel clickupgradelabel = new JLabel("Upgrades:");
+		clickupgradelabel = new JLabel("Upgrades:");
 		clickupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		clickupgradelabel.setForeground(Color.white);
 		clickupgradePanel.add(clickupgradelabel);
@@ -321,9 +324,9 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	
 	public void checkPrestige() {
 		if (Variables.lifetimepotatoCounter>prestige) {
+			prestigeCounter++;
 			playaudio("src//prestige.wav");
-			counter.setText("NEW LEVEL REACHED!!!");
-			lifetimecounter.setText("NEW LEVEL REACHED!!!");
+			clickupgradelabel.setText("Upgrades Lv."+prestigeCounter);
 			prestige*=10;
 		}
 	}

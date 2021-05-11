@@ -81,7 +81,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		name="potatoes";
 		
 		// creates frame
-
+		Variables.autoincrementer = 0;
 		JFrame frame = new JFrame("Potato Clicker");
 
 		// creates scaled imageIcon here
@@ -170,10 +170,10 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		// displays potatoes gathered per second as the player idles
 
 		Variables.autoincrementer = Variables.autoone + Variables.autoten + Variables.autohundred;
-		idlecounter=new JLabel(Variables.autoincrementer + " "+name+"/Sec");
+		idlecounter=new JLabel(Variables.autoincrementer + " "+name+"/sec" + "  " + Variables.incrementer + " "+name+"/click");
 		idlecounter.setForeground(Color.white);
 		idlecounter.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
-		idlecounter.setBounds(450,100,200,100);
+		idlecounter.setBounds(400,100,450,100);
 
 		// resets the player's progress
 
@@ -304,8 +304,14 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		}
 	}
 	
+	public void trackleaderboard() {
+		
+	}
+	
 	public void update() {
 		checkPrestige();
+		Variables.incrementer= 1 + Variables.plusten + Variables.plushundred + Variables.plusthousand;
+		Variables.autoincrementer = Variables.autoone + Variables.autoten + Variables.autohundred;
 		counter.setText(Variables.potatoCounter+ " "+name);
 		clickupgrade1.setText(Integer.toString(Variables.plustenincrement)+" " + name + " (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
 		clickupgrade2.setText(Integer.toString(Variables.plushundredincrement)+" " + name + " (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
@@ -313,12 +319,12 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		autoupgrade1.setText(Integer.toString(Variables.autooneincrement) + " P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
 		autoupgrade2.setText(Integer.toString(Variables.autotenincrement) + " P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
 		autoupgrade3.setText(Integer.toString(Variables.autohundredincrement) + " P/Sec (" + Variables.autohundredprice + "p]");
-		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
+		idlecounter.setText(Variables.autoincrementer + " "+name+"/sec" + "  " + Variables.incrementer + " "+name+"/click");
 		counter.setText(Variables.potatoCounter+ " "+name);
 		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 		if (Variables.prestigecounter >= 1) {
-			clickupgradelabel.setText("Clickers Lv." + Variables.prestigecounter);
-			autoupgradelabel.setText("Upgrades Lv." + Variables.prestigecounter);
+			clickupgradelabel.setText("Upgrades Lv." + Variables.prestigecounter);
+			autoupgradelabel.setText("Clickers Lv." + Variables.prestigecounter);
 		}
 	}
 
@@ -330,7 +336,6 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		if (e.getSource() == clicker) {
 			playaudio("src//tick.wav");
 
-			Variables.incrementer= 1 + Variables.plusten + Variables.plushundred + Variables.plusthousand;
 			Variables.potatoCounter+=Variables.incrementer; // increases potatoes counted on click
 			Variables.lifetimepotatoCounter+=Variables.incrementer; // increases lifetime potatoes on click
 
@@ -343,10 +348,9 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 		// timer updates every 1000 milliseconds (one second)
 		if (e.getSource() == timer) {
-			int temp = Variables.autoone + Variables.autoten + Variables.autohundred;
-			Variables.potatoCounter += temp;
-			Variables.lifetimepotatoCounter += temp;
-			idlecounter.setText(temp + " "+name+"/Sec");
+			Variables.potatoCounter += Variables.autoincrementer;
+			Variables.lifetimepotatoCounter += Variables.autoincrementer;
+			idlecounter.setText(Variables.autoincrementer + " "+name+"/sec" + "  " + Variables.incrementer + " "+name+"/click");
 			counter.setText(Variables.potatoCounter+ " "+name);
 			lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 		}

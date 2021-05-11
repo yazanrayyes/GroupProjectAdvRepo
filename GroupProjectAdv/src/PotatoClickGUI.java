@@ -8,32 +8,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import java.io.File;
+
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import javax.sound.sampled.*;
 
-// Potato Clicker Project V.3 by Yazan, Khaled, Ismael
-// Updated 5/9
-
-/*
-Future Additions:
-Save system x
-Achievements
-Leaderboard
-Reset button x
-More upgrades
-Improved graphics and UI
-Improved gameplay
-Music x
-Optimized code
-Avatar change x
- */
+// Potato Clicker Project V.3 Final by Yazan, Khaled, Ismael
+// Final Version 5/11
 
 
 public class PotatoClickGUI implements ActionListener, WindowListener {
@@ -41,31 +31,45 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	// GUI Stuff
 
 	JFrame frame; // our frame
-	private JButton clicker; // potato clickable area
+	
 	private ImageIcon avatar; // the image for the potato
+	
+	private JButton clicker; // potato clickable area
+	private JButton resetbutton; // button to change our image
+	private JButton changeAvatar; // button to change out avatar
+	private JButton newgamebutton; // button to start a new game
+	
 	JLabel counter; // counts the amount of potatoes collected
 	JLabel idlecounter; // potatoes per second
 	JLabel lifetimecounter; // counts the amount of potatoes collected over the course of the game
+	
+	private JLabel clickupgradelabel; // our labels for the GUI
+	private JLabel autoupgradelabel;
+	private JLabel leaderboardlabel;
 
 	private JButton clickupgrade1; // upgrades potatoes per click
 	private JButton clickupgrade2;
 	private JButton clickupgrade3;
-	private JLabel clickupgradelabel;
-	private JLabel autoupgradelabel;
 
 	private JButton autoupgrade1; // upgrades auto clickers
 	private JButton autoupgrade2;
 	private JButton autoupgrade3;
-
-	private JButton resetbutton;
-	private JButton changeAvatar;
-	private String name;
 	
-	private JButton newgamebutton;
+	private JTextArea ranking1; // rankings on our leaderboard
+	private JTextArea ranking2;
+	private JTextArea ranking3;
+	private JTextArea ranking4;
+	private JTextArea ranking5;
+
+	private String name; // the name of the object being clicked in text
 	
 	// Timer
 
 	private Timer timer = new Timer(1000, this);
+	
+	// Leaderboard
+	
+	ArrayList<Integer> rankingvalues = new ArrayList<Integer>();
 
 	// Audio
 
@@ -74,17 +78,20 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	Clip musicclip;
 	Choice musicchoice;
 	JButton musicbutton;
-	
-	// Main Method / GUI
 
 	public PotatoClickGUI() {
 		
-		Variables.potatoCounter = 0;
-		name="potatoes";
+		rankingvalues.add(Variables.highscoreone); // creating our arraylist of rankings
+		rankingvalues.add(Variables.highscoretwo);
+		rankingvalues.add(Variables.highscorethree);
+		rankingvalues.add(Variables.highscorefour);
+		rankingvalues.add(Variables.highscorefive);
+		
+		name="potatoes"; // our starting image (we can change it in-game)
 		
 		// creates frame
-		Variables.autoincrementer = 0;
-		JFrame frame = new JFrame("Potato Clicker");
+		
+		frame = new JFrame("Potato Clicker");
 
 		// creates scaled imageIcon here
 
@@ -112,7 +119,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		autoupgradePanel.setBounds(40, 40, 250, 200);
 		autoupgradePanel.setLayout(new GridLayout(4,1));
 
-		autoupgradelabel = new JLabel("Clickers:");
+		autoupgradelabel = new JLabel("Clickers");
 		autoupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		autoupgradelabel.setForeground(Color.white);
 		autoupgradePanel.add(autoupgradelabel);
@@ -137,7 +144,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		clickupgradePanel.setBounds(40, 300, 250, 200);
 		clickupgradePanel.setLayout(new GridLayout(4,1));
 
-		clickupgradelabel = new JLabel("Upgrades:");
+		clickupgradelabel = new JLabel("Upgrades");
 		clickupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		clickupgradelabel.setForeground(Color.white);
 		clickupgradePanel.add(clickupgradelabel);
@@ -154,7 +161,33 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		clickupgrade3 = new JButton();
 		clickupgrade3.addActionListener(this);
 		clickupgradePanel.add(clickupgrade3);
-
+		
+		// Here's a leaderboard of all our scores and stuff
+		
+		Panel leaderboardPanel = new Panel();
+		leaderboardPanel.setBackground(Color.white);
+		leaderboardPanel.setBounds(1000, 120, 150, 300);
+		leaderboardPanel.setLayout(new GridLayout(6,1));
+		
+		leaderboardlabel = new JLabel("Leaderboard");
+		leaderboardlabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 16));
+		leaderboardlabel.setForeground(Color.white);
+		leaderboardPanel.add(leaderboardlabel);
+		leaderboardPanel.setBackground(Color.gray);
+		
+		// Different slots in the leaderboard
+		
+		ranking1 = new JTextArea();
+		leaderboardPanel.add(ranking1);
+		ranking2 = new JTextArea();
+		leaderboardPanel.add(ranking2);
+		ranking3 = new JTextArea();
+		leaderboardPanel.add(ranking3);
+		ranking4 = new JTextArea();
+		leaderboardPanel.add(ranking4);
+		ranking5 = new JTextArea();
+		leaderboardPanel.add(ranking5);
+		
 		// counter counts the number of potatoes gathered
 
 		counter=new JLabel(Variables.potatoCounter +" "+name);
@@ -185,7 +218,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		
 		newgamebutton = new JButton("New Game");
 		newgamebutton.addActionListener(this);
-		newgamebutton.setBounds(850,550,120,20);
+		newgamebutton.setBounds(1050,550,120,20);
 
 		//changes to Onion avatar
 		changeAvatar= new JButton("Change Avatar");
@@ -193,7 +226,6 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		changeAvatar.setBounds(40,550,200,20);
 
 		// change the music
-
 		musicchoice = new Choice();
 		musicchoice.add("no music");
 		musicchoice.add("'Pizza Parlor'");
@@ -201,13 +233,13 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		musicchoice.add("'Among Us'");
 		musicchoice.add("'Chug Jug'");
 		musicchoice.add("'Jueputa'");
-		musicchoice.setBounds(700,20,100,100);
+		musicchoice.setBounds(900,20,100,100);
 
 		// sets the music
 
 		musicbutton = new JButton("no music");
 		musicbutton.addActionListener(this);
-		musicbutton.setBounds(820,20,125,75);
+		musicbutton.setBounds(1020,20,125,75);
 
 		// adds all the GUI to our frame
 
@@ -219,13 +251,14 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		frame.add(idlecounter);
 		frame.add(lifetimecounter);
 		frame.add(newgamebutton);
+		frame.add(leaderboardPanel);
 		frame.add(autoupgradePanel);
 		frame.add(clickupgradePanel);
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.gray);
 		frame.setLayout(null);
 		frame.setFocusable(true);
-		frame.setSize(1000,620);
+		frame.setSize(1200,620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addWindowListener(this);
 		frame.setVisible(true);
@@ -241,6 +274,8 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		new PotatoClickGUI();
 	}
 	
+	// loads our saved game
+	
 	public void load() {
 		
 		Variables.loadgame();
@@ -249,10 +284,8 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		timer.start();
         
 	}
-	//Integer.parseInt(
-	// sets up our variables (will work on this later)
 	
-	
+	// resets our game
 
 	public void reset() {
 		Variables.resetgame();
@@ -262,7 +295,10 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		timer.start();
 	}
 	
+	// starts a new game
+	
 	public void startnewgame() {
+		sortranking();
 		Variables.newgame();
 		timer.stop();
 		update();
@@ -270,6 +306,28 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		autoupgradelabel.setText("Clickers");
 		clickupgradelabel.setText("Upgrades");
 		timer.start();
+	}
+	
+	// sorts the rankings in our leaderboard
+	
+	public void sortranking() {
+		if (Variables.potatoCounter > rankingvalues.get(4)) {
+			rankingvalues.set(4,Variables.potatoCounter);
+		}
+		
+		for (int i = 4; i > 0; i--) {
+			int temp = rankingvalues.get(i);
+			if (rankingvalues.get(i) > rankingvalues.get(i-1)) {
+				rankingvalues.set(i,rankingvalues.get(i-1));
+				rankingvalues.set(i-1, temp);
+			}
+		}
+		
+		Variables.highscoreone = rankingvalues.get(0);
+		Variables.highscoretwo = rankingvalues.get(1);
+		Variables.highscorethree = rankingvalues.get(2);
+		Variables.highscorefour = rankingvalues.get(3);
+		Variables.highscorefive = rankingvalues.get(4);
 	}
 	
 	// plays FX audio on click
@@ -301,6 +359,8 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		}
 	}
 	
+	// changes our icon from a potato to other images
+	
 	public void changeicon(String txtname, String imagename, ImageIcon iconname) {
 		
 		avatar = new ImageIcon(imagename);
@@ -312,6 +372,8 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		update();
 	}
 	
+	// checks to see if the player qualifies for prestige when resetting the game
+	
 	public void checkPrestige() {
 		if (Variables.potatoCounter >= Variables.prestigelevel) {
 			playaudio("src//prestige.wav");
@@ -322,9 +384,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		}
 	}
 	
-	public void trackleaderboard() {
-		
-	}
+	// updates our GUI as labels/text changes
 	
 	public void update() {
 		checkPrestige();
@@ -337,6 +397,16 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		autoupgrade1.setText(Integer.toString(Variables.autooneincrement) + " P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
 		autoupgrade2.setText(Integer.toString(Variables.autotenincrement) + " P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
 		autoupgrade3.setText(Integer.toString(Variables.autohundredincrement) + " P/Sec (" + Variables.autohundredprice + "p]");
+		rankingvalues.set(0,Variables.highscoreone);
+		rankingvalues.set(1,Variables.highscoretwo);
+		rankingvalues.set(2,Variables.highscorethree);
+		rankingvalues.set(3,Variables.highscorefour);
+		rankingvalues.set(4,Variables.highscorefive);
+		ranking1.setText("1:"+Integer.toString(rankingvalues.get(0)));
+		ranking2.setText("2:"+Integer.toString(rankingvalues.get(1)));
+		ranking3.setText("3:"+Integer.toString(rankingvalues.get(2)));
+		ranking4.setText("4:"+Integer.toString(rankingvalues.get(3)));
+		ranking5.setText("5:"+Integer.toString(rankingvalues.get(4)));
 		idlecounter.setText(Variables.autoincrementer + " "+name+"/sec" + "  " + Variables.incrementer + " "+name+"/click");
 		counter.setText(Variables.potatoCounter+ " "+name);
 		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
@@ -373,7 +443,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 			lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
 		}
 
-		// when the player clicks the reset button
+		// when the player clicks the reset button, game resets
 		if (e.getSource() == resetbutton) {
 			playaudio("src//tick.wav");
 			reset();
@@ -384,7 +454,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 			startnewgame();
 		}
 
-		// When the player clicks the upgrade buttons
+		// When the player clicks the upgrade buttons, they get increased potatoes when they click
 
 		if (e.getSource() == clickupgrade1 && Variables.potatoCounter >= Variables.plustenprice) {
 			playaudio("src//orb.wav");
@@ -414,7 +484,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 			
 		}
 
-		// When the player clicks the clicker buttons
+		// When the player clicks the clicker buttons, they get potatoes automatically
 
 		if (e.getSource() == autoupgrade1 && Variables.potatoCounter >= Variables.autooneprice) {
 			playaudio("src//orb.wav");
@@ -443,7 +513,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 		}
 
-		// when the player selects the change avatar button
+		// when the player selects the change avatar button, rotates through different avatars
 
 		if (e.getSource()==changeAvatar) {
 			playaudio("src//tick.wav");
@@ -474,7 +544,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 			}
 		}
 
-		// when the player selects the music button
+		// when the player selects the music button, changes the music
 
 		if (e.getSource()==musicbutton) {
 			playaudio("src//tick.wav");
@@ -506,10 +576,9 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 				musicbutton.setText("no music");
 			}
 		}
-
 	}
 	
-	// Annoying imported methods I can't get rid of
+	// Annoying imported methods I can't get rid of, ignore these
 
 	@Override
 	public void windowClosing(WindowEvent e) {

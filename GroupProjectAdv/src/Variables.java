@@ -21,8 +21,7 @@ public class Variables {
 	public static int lifetimepotatoCounter = 0; // counts the amount of potatoes collected over the course of the game
 	public static int incrementer; //the amount of potatoes added (used to activate powerups)
 	public static int autoincrementer; // the amount of potatoes added automatically
-
-
+	
 	// Upgrades
 
 	public static int plusten=0; // +10 potatoes per click
@@ -58,14 +57,23 @@ public class Variables {
 	public static ArrayList<String> savedvalues = new ArrayList<String>();
 	public static ArrayList<Integer> intvalues = new ArrayList<Integer>();
 	
+	// High Scores
+	
+	public static int highscoreone = 1;
+	public static int highscoretwo = 0;
+	public static int highscorethree = 0;
+	public static int highscorefour = 0;
+	public static int highscorefive = 0;
+	
 	public static String line;
 	
 	public static void savegame() {
 		String savedata = (""+potatoCounter+" "+lifetimepotatoCounter+" "+incrementer
-		+" "+autoincrementer+" "+prestigebonus+" "+prestigelevel+" "+prestigecounter+" "+pendingprestige+" "+plusten+" "+plustenprice+" "+plustenqty+" "+plustenincrement+" "+plushundred+" "+plushundredprice
-        +" "+plushundredqty+" "+plushundredincrement+" "+plusthousand+" "+plusthousandprice+" "+plusthousandqty+" "
-		+plusthousandincrement+" "+autoone+" "+autooneprice+" "+autooneqty+" "+autooneincrement+" "+autoten+" "
-        +autotenprice+" "+autotenqty+" "+autotenincrement+" "+autohundred+" "+autohundredprice+" "+autohundredqty+" "+autohundredincrement+" ");
+		+" "+autoincrementer+" "+prestigebonus+" "+prestigelevel+" "+prestigecounter+" "+pendingprestige+" "+plusten+" "+plustenprice+" "+plustenqty+" "+plustenincrement+" "
+		+plushundred+" "+plushundredprice+" "+plushundredqty+" "+plushundredincrement+" "+plusthousand+" "+plusthousandprice+" "+plusthousandqty+" "+plusthousandincrement+
+		" "+autoone+" "+autooneprice+" "+autooneqty+" "+autooneincrement+" "+autoten+" "+autotenprice+" "+autotenqty+" "+autotenincrement+" "+autohundred+" "+autohundredprice+" "
+		+autohundredqty+" "+autohundredincrement+" "+highscoreone+" "+highscoretwo+" "+highscorethree+" "+highscorefour+" "+highscorefive+" ");
+		
 		FileOutputStream stream= null;
         try {
             stream= new FileOutputStream("src//savefile.txt");
@@ -132,6 +140,11 @@ public class Variables {
 		autohundredprice = intvalues.get(29);
 		autohundredqty = intvalues.get(30);
 		autohundredincrement = intvalues.get(31);
+		highscoreone = intvalues.get(32);
+		highscoretwo = intvalues.get(33);
+		highscorethree = intvalues.get(34);
+		highscorefour = intvalues.get(35);
+		highscorefive = intvalues.get(36);
 	}
 
 	public static void resetgame() {
@@ -165,5 +178,43 @@ public class Variables {
 		autohundredprice = 10000;
 		autohundredqty = 0;
 		autohundredincrement *= prestigebonus;
+	}
+	
+	public static void newgame() {
+		
+		prestigelevel = 100;
+		prestigecounter = 0;
+		prestigebonus = 1;
+		pendingprestige = 1;
+		potatoCounter = 0;
+		lifetimepotatoCounter = 0;
+		incrementer = 0;
+		autoincrementer = 0;
+		plusten =0;
+		plustenprice = 100;
+		plustenqty = 0;
+		plustenincrement = 10;
+		plushundred = 0;
+		plushundredprice = 1000;
+		plushundredqty = 0;
+		plushundredincrement = 100;
+		plusthousand = 0;
+		plusthousandprice = 10000;
+		plusthousandqty = 0;
+		plusthousandincrement = 1000;
+		autoone = 0;
+		autooneprice = 100;
+		autooneqty = 0;
+		autooneincrement = 1;
+		autoten = 0;
+		autotenprice = 1000;
+		autotenqty = 0;
+		autotenincrement = 10;
+		autohundred = 0;
+		autohundredprice = 10000;
+		autohundredqty = 0;
+		autohundredincrement = 100;
+		savedvalues = new ArrayList<String>();
+		intvalues = new ArrayList<Integer>();
 	}
 }

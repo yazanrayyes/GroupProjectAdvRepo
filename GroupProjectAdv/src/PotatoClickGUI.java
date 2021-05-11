@@ -61,6 +61,8 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	private JButton changeAvatar;
 	private String name;
 	
+	private JButton newgamebutton;
+	
 	// Timer
 
 	private Timer timer = new Timer(1000, this);
@@ -180,6 +182,10 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		resetbutton = new JButton("Reset" + " (prestige at " + Variables.prestigelevel + "p) ");
 		resetbutton.addActionListener(this);
 		resetbutton.setBounds(40,20,300,20);
+		
+		newgamebutton = new JButton("New Game");
+		newgamebutton.addActionListener(this);
+		newgamebutton.setBounds(850,550,120,20);
 
 		//changes to Onion avatar
 		changeAvatar= new JButton("Change Avatar");
@@ -212,6 +218,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		frame.add(counter);
 		frame.add(idlecounter);
 		frame.add(lifetimecounter);
+		frame.add(newgamebutton);
 		frame.add(autoupgradePanel);
 		frame.add(clickupgradePanel);
 		frame.setResizable(false);
@@ -252,6 +259,16 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		timer.stop();
 		update();
 		resetbutton.setText("Reset" + " (prestige at " + Variables.prestigelevel + "p) ");
+		timer.start();
+	}
+	
+	public void startnewgame() {
+		Variables.newgame();
+		timer.stop();
+		update();
+		resetbutton.setText("Reset" + " (prestige at " + Variables.prestigelevel + "p) ");
+		autoupgradelabel.setText("Clickers");
+		clickupgradelabel.setText("Upgrades");
 		timer.start();
 	}
 	
@@ -297,6 +314,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	
 	public void checkPrestige() {
 		if (Variables.potatoCounter >= Variables.prestigelevel) {
+			playaudio("src//prestige.wav");
 			Variables.prestigecounter++;
 			resetbutton.setText("Reset [" + Variables.prestigelevel + "p prestige unlocked]");
 			Variables.pendingprestige *= 2;
@@ -360,6 +378,11 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 			playaudio("src//tick.wav");
 			reset();
 		}
+		
+		if (e.getSource() == newgamebutton) {
+			playaudio("src//tick.wav");
+			startnewgame();
+		}
 
 		// When the player clicks the upgrade buttons
 
@@ -368,24 +391,27 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 			Variables.potatoCounter -= Variables.plustenprice;
 			Variables.plustenqty += 1;
 			Variables.plustenprice+=100;
-			update();
 			Variables.plusten+=Variables.plustenincrement;
+			update();
+
 		}
 		if (e.getSource() == clickupgrade2 && Variables.potatoCounter >= Variables.plushundredprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.plushundredprice;
 			Variables.plushundredqty += 1;
 			Variables.plushundredprice+=1000;
-			update();
 			Variables.plushundred+=Variables.plushundredincrement;
+			update();
+
 		}
 		if (e.getSource() == clickupgrade3 && Variables.potatoCounter >= Variables.plusthousandprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.plusthousandprice;
 			Variables.plusthousandqty += 1;
 			Variables.plusthousandprice+=10000;
-			update();
 			Variables.plusthousand+=Variables.plusthousandincrement;
+			update();
+			
 		}
 
 		// When the player clicks the clicker buttons

@@ -51,6 +51,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	private JButton clickupgrade2;
 	private JButton clickupgrade3;
 	private JLabel clickupgradelabel;
+	private JLabel autoupgradelabel;
 
 	private JButton autoupgrade1; // upgrades auto clickers
 	private JButton autoupgrade2;
@@ -59,8 +60,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	private JButton resetbutton;
 	private JButton changeAvatar;
 	private String name;
-	private int prestige;
-	private int prestigeCounter;
+	
 	// Timer
 
 	private Timer timer = new Timer(1000, this);
@@ -79,8 +79,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		
 		Variables.potatoCounter = 0;
 		name="potatoes";
-		prestige=100;
-		prestigeCounter=0;
+		
 		// creates frame
 
 		JFrame frame = new JFrame("Potato Clicker");
@@ -111,7 +110,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		autoupgradePanel.setBounds(40, 40, 250, 200);
 		autoupgradePanel.setLayout(new GridLayout(4,1));
 
-		JLabel autoupgradelabel = new JLabel("Clickers:");
+		autoupgradelabel = new JLabel("Clickers:");
 		autoupgradelabel.setFont(new Font("Comic Sans Ms", Font.PLAIN, 32));
 		autoupgradelabel.setForeground(Color.white);
 		autoupgradePanel.add(autoupgradelabel);
@@ -119,13 +118,13 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 		// our autoclicker upgrade buttons
 
-		autoupgrade1 = new JButton("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
+		autoupgrade1 = new JButton();
 		autoupgrade1.addActionListener(this);
 		autoupgradePanel.add(autoupgrade1);
-		autoupgrade2 = new JButton("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
+		autoupgrade2 = new JButton();
 		autoupgrade2.addActionListener(this);
 		autoupgradePanel.add(autoupgrade2);
-		autoupgrade3 = new JButton("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
+		autoupgrade3 = new JButton();
 		autoupgrade3.addActionListener(this);
 		autoupgradePanel.add(autoupgrade3);
 
@@ -144,13 +143,13 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 		// our upgrade buttons
 
-		clickupgrade1 = new JButton("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+		clickupgrade1 = new JButton();
 		clickupgrade1.addActionListener(this);
 		clickupgradePanel.add(clickupgrade1);
-		clickupgrade2 = new JButton("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+		clickupgrade2 = new JButton();
 		clickupgrade2.addActionListener(this);
 		clickupgradePanel.add(clickupgrade2);
-		clickupgrade3 = new JButton("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+		clickupgrade3 = new JButton();
 		clickupgrade3.addActionListener(this);
 		clickupgradePanel.add(clickupgrade3);
 
@@ -178,7 +177,7 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 
 		// resets the player's progress
 
-		resetbutton = new JButton("Reset");
+		resetbutton = new JButton("Reset" + " (prestige at " + Variables.prestigelevel + "p) ");
 		resetbutton.addActionListener(this);
 		resetbutton.setBounds(40,20,300,20);
 
@@ -238,19 +237,8 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	public void load() {
 		
 		Variables.loadgame();
-        
         timer.stop();
-        
-        clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
-		autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
-		autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
-		autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
-		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
-		counter.setText(Variables.potatoCounter+ " "+name);
-		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
-		
+		update();
 		timer.start();
         
 	}
@@ -260,21 +248,10 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 	
 
 	public void reset() {
-		
 		Variables.resetgame();
-		
 		timer.stop();
-		
-		clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
-		autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
-		autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
-		autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
-		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
-		counter.setText(Variables.potatoCounter+ " "+name);
-		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
-		
+		update();
+		resetbutton.setText("Reset" + " (prestige at " + Variables.prestigelevel + "p) ");
 		timer.start();
 	}
 	
@@ -315,19 +292,33 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		iconname = new ImageIcon (scaled);
 		clicker.setIcon(iconname);
 		name = txtname;
-		counter.setText(Variables.potatoCounter+ " "+name);
-		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
-		clickupgrade1.setText("10 "+name+" (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-		clickupgrade2.setText("100 "+name+" (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-		clickupgrade3.setText("1000 "+name+" (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+		update();
 	}
 	
 	public void checkPrestige() {
-		if (Variables.lifetimepotatoCounter>prestige) {
-			prestigeCounter++;
-			playaudio("src//prestige.wav");
-			clickupgradelabel.setText("Upgrades Lv."+prestigeCounter);
-			prestige*=10;
+		if (Variables.potatoCounter >= Variables.prestigelevel) {
+			Variables.prestigecounter++;
+			resetbutton.setText("Reset [" + Variables.prestigelevel + "p prestige unlocked]");
+			Variables.pendingprestige *= 2;
+			Variables.prestigelevel*=100;
+		}
+	}
+	
+	public void update() {
+		checkPrestige();
+		counter.setText(Variables.potatoCounter+ " "+name);
+		clickupgrade1.setText(Integer.toString(Variables.plustenincrement)+" " + name + " (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
+		clickupgrade2.setText(Integer.toString(Variables.plushundredincrement)+" " + name + " (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
+		clickupgrade3.setText(Integer.toString(Variables.plusthousandincrement)+" " + name + " (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
+		autoupgrade1.setText(Integer.toString(Variables.autooneincrement) + " P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
+		autoupgrade2.setText(Integer.toString(Variables.autotenincrement) + " P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
+		autoupgrade3.setText(Integer.toString(Variables.autohundredincrement) + " P/Sec (" + Variables.autohundredprice + "p]");
+		idlecounter.setText(Variables.autoincrementer + " "+name+"/Sec");
+		counter.setText(Variables.potatoCounter+ " "+name);
+		lifetimecounter.setText("total "+name+" gathered: " + Variables.lifetimepotatoCounter);
+		if (Variables.prestigecounter >= 1) {
+			clickupgradelabel.setText("Clickers Lv." + Variables.prestigecounter);
+			autoupgradelabel.setText("Upgrades Lv." + Variables.prestigecounter);
 		}
 	}
 
@@ -363,7 +354,6 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		// when the player clicks the reset button
 		if (e.getSource() == resetbutton) {
 			playaudio("src//tick.wav");
-			timer.stop();
 			reset();
 		}
 
@@ -372,39 +362,26 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		if (e.getSource() == clickupgrade1 && Variables.potatoCounter >= Variables.plustenprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.plustenprice;
-
-			counter.setText(Variables.potatoCounter+ " "+name);
-
 			Variables.plustenqty += 1;
 			Variables.plustenprice+=100;
-			clickupgrade1.setText("10 " + name + " (" + Variables.plustenqty + ") [" + Variables.plustenprice + "p]");
-
-			Variables.plusten+=10;
+			update();
+			Variables.plusten+=Variables.plustenincrement;
 		}
 		if (e.getSource() == clickupgrade2 && Variables.potatoCounter >= Variables.plushundredprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.plushundredprice;
-
-			counter.setText(Variables.potatoCounter+ " "+name);
-
 			Variables.plushundredqty += 1;
 			Variables.plushundredprice+=1000;
-			clickupgrade2.setText("100 " + name + " (" + Variables.plushundredqty + ") [" + Variables.plushundredprice + "p]");
-
-			Variables.plushundred+=100;
+			update();
+			Variables.plushundred+=Variables.plushundredincrement;
 		}
 		if (e.getSource() == clickupgrade3 && Variables.potatoCounter >= Variables.plusthousandprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.plusthousandprice;
-
-			counter.setText(Variables.potatoCounter+ " "+name);
-
 			Variables.plusthousandqty += 1;
 			Variables.plusthousandprice+=10000;
-			clickupgrade3.setText("1000 " + name + " (" + Variables.plusthousandqty + ") [" + Variables.plusthousandprice + "p]");
-
-
-			Variables.plusthousand+=1000;
+			update();
+			Variables.plusthousand+=Variables.plusthousandincrement;
 		}
 
 		// When the player clicks the clicker buttons
@@ -412,29 +389,27 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		if (e.getSource() == autoupgrade1 && Variables.potatoCounter >= Variables.autooneprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.autooneprice;
-			Variables.autoone+=1;
-
+			Variables.autoone+=Variables.autooneincrement;
 			Variables.autooneqty += 1;
+			update();
 			Variables.autooneprice+=10;
-			autoupgrade1.setText("+1 P/Sec (" + Variables.autooneqty + ") [" + Variables.autooneprice + "p]");
+
 		}
 		if (e.getSource() == autoupgrade2 && Variables.potatoCounter >= Variables.autotenprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.autotenprice;
-			Variables.autoten+=10;
-
+			Variables.autoten+=Variables.autotenincrement;
 			Variables.autotenqty += 1;
+			update();
 			Variables.autotenprice+=100;
-			autoupgrade2.setText("+10 P/Sec (" + Variables.autotenqty + ") [" + Variables.autotenprice + "p]");
 		}
 		if (e.getSource() == autoupgrade3 && Variables.potatoCounter >= Variables.autohundredprice) {
 			playaudio("src//orb.wav");
 			Variables.potatoCounter -= Variables.autohundredprice;
-			Variables.autohundred+=100;
-
+			Variables.autohundred+=Variables.autohundredincrement;
 			Variables.autohundredqty += 1;
+			update();
 			Variables.autohundredprice+=1000;
-			autoupgrade3.setText("+100 P/Sec (" + Variables.autohundredqty + ") [" + Variables.autohundredprice + "p]");
 
 		}
 

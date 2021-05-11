@@ -178,14 +178,19 @@ public class PotatoClickGUI implements ActionListener, WindowListener {
 		// Different slots in the leaderboard
 		
 		ranking1 = new JTextArea();
+		ranking1.setEditable(false);
 		leaderboardPanel.add(ranking1);
 		ranking2 = new JTextArea();
+		ranking2.setEditable(false);
 		leaderboardPanel.add(ranking2);
 		ranking3 = new JTextArea();
+		ranking3.setEditable(false);
 		leaderboardPanel.add(ranking3);
 		ranking4 = new JTextArea();
+		ranking4.setEditable(false);
 		leaderboardPanel.add(ranking4);
 		ranking5 = new JTextArea();
+		ranking5.setEditable(false);
 		leaderboardPanel.add(ranking5);
 		
 		// counter counts the number of potatoes gathered
